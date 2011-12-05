@@ -42,7 +42,7 @@ public final class DecoderActivityHandler extends Handler {
 
     private static final String TAG = DecoderActivityHandler.class.getSimpleName();
 
-    private final DecoderActivity activity;
+    private final IDecoderActivity activity;
     private final DecodeThread decodeThread;
     private State state;
     private final CameraManager cameraManager;
@@ -51,7 +51,7 @@ public final class DecoderActivityHandler extends Handler {
         PREVIEW, SUCCESS, DONE
     }
 
-    DecoderActivityHandler(DecoderActivity activity, Collection<BarcodeFormat> decodeFormats,
+    DecoderActivityHandler(IDecoderActivity activity, Collection<BarcodeFormat> decodeFormats,
             String characterSet, CameraManager cameraManager) {
         this.activity = activity;
         decodeThread = new DecodeThread(activity, decodeFormats, characterSet,
@@ -96,8 +96,8 @@ public final class DecoderActivityHandler extends Handler {
             case R.id.return_scan_result:
                 Log.d(TAG, "Got return scan result message");
                 if (activity instanceof Activity) {
-                    ((Activity)activity).setResult(Activity.RESULT_OK, (Intent) message.obj);
-                    ((Activity)activity).finish();
+                    ((Activity) activity).setResult(Activity.RESULT_OK, (Intent) message.obj);
+                    ((Activity) activity).finish();
                 } else {
                     Log.e(TAG, "Scan result message, activity is not Activity. Doing nothing.");
                 }
@@ -108,7 +108,7 @@ public final class DecoderActivityHandler extends Handler {
                     String url = (String) message.obj;
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-                    ((Activity)activity).startActivity(intent);
+                    ((Activity) activity).startActivity(intent);
                 } else {
                     Log.e(TAG, "Product query message, activity is not Activity. Doing nothing.");
                 }

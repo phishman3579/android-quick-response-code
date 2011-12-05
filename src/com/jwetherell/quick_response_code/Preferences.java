@@ -1,8 +1,9 @@
 package com.jwetherell.quick_response_code;
 
 public class Preferences {
-    private Preferences() { };
-    
+    private Preferences() {
+    };
+
     public static final String KEY_DECODE_1D = "preferences_decode_1D";
     public static final String KEY_DECODE_QR = "preferences_decode_QR";
     public static final String KEY_DECODE_DATA_MATRIX = "preferences_decode_Data_Matrix";

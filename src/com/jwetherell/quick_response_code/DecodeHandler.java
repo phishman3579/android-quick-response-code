@@ -36,11 +36,11 @@ import com.jwetherell.quick_response_code.core.common.HybridBinarizer;
 final class DecodeHandler extends Handler {
     private static final String TAG = DecodeHandler.class.getSimpleName();
 
-    private final DecoderActivity activity;
+    private final IDecoderActivity activity;
     private final MultiFormatReader multiFormatReader;
     private boolean running = true;
 
-    DecodeHandler(DecoderActivity activity, Map<DecodeHintType, Object> hints) {
+    DecodeHandler(IDecoderActivity activity, Map<DecodeHintType, Object> hints) {
         multiFormatReader = new MultiFormatReader();
         multiFormatReader.setHints(hints);
         this.activity = activity;

@@ -39,7 +39,7 @@ import android.widget.TextView;
  * 
  * @author Justin Wetherell (phishman3579@gmail.com)
  */
-public class DecoderActivity extends Activity implements SurfaceHolder.Callback {
+public class DecoderActivity extends Activity implements IDecoderActivity, SurfaceHolder.Callback {
     private static final String TAG = DecoderActivity.class.getSimpleName();
 
     private static CameraManager cameraManager = null;
@@ -77,8 +77,10 @@ public class DecoderActivity extends Activity implements SurfaceHolder.Callback 
         super.onResume();
 
         // CameraManager must be initialized here, not in onCreate(). This is necessary because we
-        // don't want to open the camera driver and measure the screen size if we're going to show the
-        // help on first launch. That led to bugs where the scanning rectangle was the wrong size and
+        // don't want to open the camera driver and measure the screen size if we're going to show
+        // the
+        // help on first launch. That led to bugs where the scanning rectangle was the wrong size
+        // and
         // partially off screen.
         cameraManager = new CameraManager(getApplication());
 
@@ -158,7 +160,7 @@ public class DecoderActivity extends Activity implements SurfaceHolder.Callback 
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        //Ignore
+        // Ignore
     }
 
     public ViewfinderView getViewfinder() {
@@ -173,12 +175,6 @@ public class DecoderActivity extends Activity implements SurfaceHolder.Callback 
         return cameraManager;
     }
 
-    /**
-     * A valid barcode has been found, so give an indication of success and show the results.
-     * 
-     * @param rawResult The contents of the barcode.
-     * @param barcode A greyscale bitmap of the caBarcodeFormatmera data which was decoded.
-     */
     public void handleDecode(Result rawResult, Bitmap barcode) {
         inactivityTimer.onActivity();
         ResultHandler resultHandler = ResultHandlerFactory.makeResultHandler(this, rawResult);
@@ -230,14 +226,16 @@ public class DecoderActivity extends Activity implements SurfaceHolder.Callback 
     }
 
     // Put up our own UI for how to handle the decodBarcodeFormated contents.
-    private void handleDecodeInternally(Result rawResult, ResultHandler resultHandler, Bitmap barcode) {
+    private void handleDecodeInternally(Result rawResult, ResultHandler resultHandler,
+            Bitmap barcode) {
         statusView.setVisibility(View.GONE);
         viewfinderView.setVisibility(View.GONE);
         resultView.setVisibility(View.VISIBLE);
 
         ImageView barcodeImageView = (ImageView) findViewById(R.id.barcode_image_view);
         if (barcode == null) {
-            barcodeImageView.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.icon));
+            barcodeImageView.setImageBitmap(BitmapFactory.decodeResource(getResources(),
+                    R.drawable.icon));
         } else {
             barcodeImageView.setImageBitmap(barcode);
         }
@@ -258,7 +256,9 @@ public class DecoderActivity extends Activity implements SurfaceHolder.Callback 
         try {
             cameraManager.openDriver(surfaceHolder);
             // Creating the handler starts the preview, which can also throw a RuntimeException.
-            if (handler == null) handler = new DecoderActivityHandler(this, decodeFormats, characterSet, cameraManager);
+            if (handler == null)
+                handler = new DecoderActivityHandler(this, decodeFormats, characterSet,
+                        cameraManager);
         } catch (IOException ioe) {
             Log.w(TAG, ioe);
         } catch (RuntimeException e) {

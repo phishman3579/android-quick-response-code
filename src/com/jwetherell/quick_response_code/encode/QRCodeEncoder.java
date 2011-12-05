@@ -83,8 +83,7 @@ public final class QRCodeEncoder {
             }
         }
         if (format == null || format == BarcodeFormat.QR_CODE) {
-            if (data == null || bundle == null || type == null || type.length() == 0)
-                return false;
+            if (data == null || bundle == null || type == null || type.length() == 0) return false;
             this.format = BarcodeFormat.QR_CODE;
             encodeQRCodeContents(data, bundle, type);
         } else if (data != null && data.length() > 0) {
@@ -207,7 +206,7 @@ public final class QRCodeEncoder {
 
     public Bitmap encodeAsBitmap() throws WriterException {
         if (!encoded) return null;
-        
+
         Map<EncodeHintType, Object> hints = null;
         String encoding = guessAppropriateEncoding(contents);
         if (encoding != null) {

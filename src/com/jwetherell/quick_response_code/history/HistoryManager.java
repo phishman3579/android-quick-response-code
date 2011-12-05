@@ -16,6 +16,7 @@
 
 package com.jwetherell.quick_response_code.history;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -40,7 +41,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.jwetherell.quick_response_code.DecoderActivity;
 import com.jwetherell.quick_response_code.Preferences;
 import com.jwetherell.quick_response_code.R;
 import com.jwetherell.quick_response_code.Intents;
@@ -74,8 +74,9 @@ public final class HistoryManager {
     };
     private static final DateFormat EXPORT_DATE_TIME_FORMAT = DateFormat.getDateTimeInstance();
 
-    private final DecoderActivity activity;
-    public HistoryManager(DecoderActivity activity) {
+    private final Activity activity;
+
+    public HistoryManager(Activity activity) {
         this.activity = activity;
     }
 
@@ -132,7 +133,8 @@ public final class HistoryManager {
         Resources res = activity.getResources();
         dialogItems.add(res.getString(R.string.history_send));
         dialogItems.add(res.getString(R.string.history_clear_text));
-        DialogInterface.OnClickListener clickListener = new HistoryClickListener(this, activity, items);
+        DialogInterface.OnClickListener clickListener = new HistoryClickListener(this, activity,
+                items);
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.history_title);
         builder.setItems(dialogItems.toArray(new String[dialogItems.size()]), clickListener);

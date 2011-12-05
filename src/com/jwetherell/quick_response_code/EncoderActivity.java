@@ -38,18 +38,15 @@ public final class EncoderActivity extends Activity {
 
         try {
             QRCodeEncoder qrCodeEncoder = null;
-            qrCodeEncoder = new QRCodeEncoder("Hello",
-                                              new Bundle(),
-                                              Contents.Type.TEXT,
-                                              BarcodeFormat.QR_CODE.toString(),
-                                              smallerDimension);
+            qrCodeEncoder = new QRCodeEncoder("Hello", new Bundle(), Contents.Type.TEXT,
+                    BarcodeFormat.QR_CODE.toString(), smallerDimension);
             /*
-            qrCodeEncoder = new QRCodeEncoder("12345678910",
-                                              new Bundle(),
-                                              Contents.Type.TEXT,
-                                              BarcodeFormat.UPC_A.toString(),
-                                              smallerDimension);
-            */
+             * qrCodeEncoder = new QRCodeEncoder("12345678910",
+             * new Bundle(),
+             * Contents.Type.TEXT,
+             * BarcodeFormat.UPC_A.toString(),
+             * smallerDimension);
+             */
             Bitmap bitmap = qrCodeEncoder.encodeAsBitmap();
             ImageView view = (ImageView) findViewById(R.id.image_view);
             view.setImageBitmap(bitmap);

@@ -71,10 +71,12 @@ public abstract class ResultHandler {
         // http://code.google.com/p/android/issues/detail?id=8330
         DATE_FORMAT.setTimeZone(TimeZone.getTimeZone("GMT"));
     }
-    private static final DateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyyMMdd'T'HHmmss", Locale.ENGLISH);
+    private static final DateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyyMMdd'T'HHmmss",
+            Locale.ENGLISH);
 
     private static final String GOOGLE_SHOPPER_PACKAGE = "com.google.android.apps.shopper";
-    private static final String GOOGLE_SHOPPER_ACTIVITY = GOOGLE_SHOPPER_PACKAGE + ".results.SearchResultsActivity";
+    private static final String GOOGLE_SHOPPER_ACTIVITY = GOOGLE_SHOPPER_PACKAGE
+            + ".results.SearchResultsActivity";
     private static final String MARKET_URI_PREFIX = "market://details?id=";
     private static final String MARKET_REFERRER_SUFFIX = "&referrer=utm_source%3Dbarcodescanner%26utm_medium%3Dapps%26utm_campaign%3Dscan";
 
@@ -113,7 +115,8 @@ public abstract class ResultHandler {
     private final Result rawResult;
     private final String customProductSearch;
 
-    private final DialogInterface.OnClickListener shopperMarketListener = new DialogInterface.OnClickListener() {
+    private final DialogInterface.OnClickListener shopperMarketListener = new DialogInterface.OnClickListener()
+    {
         @Override
         public void onClick(DialogInterface dialogInterface, int which) {
             launchIntent(new Intent(Intent.ACTION_VIEW, Uri.parse(MARKET_URI_PREFIX

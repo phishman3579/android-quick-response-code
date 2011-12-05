@@ -420,7 +420,8 @@ public final class Detector {
     /**
      * Orders ResultPointsAndTransitions by number of transitions, ascending.
      */
-    private static class ResultPointsAndTransitionsComparator implements Comparator<ResultPointsAndTransitions>, Serializable {
+    private static class ResultPointsAndTransitionsComparator implements
+            Comparator<ResultPointsAndTransitions>, Serializable {
         private static final long serialVersionUID = -9104205101877143696L;
 
         @Override

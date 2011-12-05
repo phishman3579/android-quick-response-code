@@ -16,6 +16,7 @@
 
 package com.jwetherell.quick_response_code.history;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,7 +25,7 @@ import android.os.Message;
 
 import java.util.List;
 
-import com.jwetherell.quick_response_code.DecoderActivity;
+import com.jwetherell.quick_response_code.IDecoderActivity;
 import com.jwetherell.quick_response_code.R;
 import com.jwetherell.quick_response_code.core.Result;
 
@@ -32,7 +33,7 @@ import com.jwetherell.quick_response_code.core.Result;
 final class HistoryClickListener implements DialogInterface.OnClickListener {
 
     private final HistoryManager historyManager;
-    private final DecoderActivity activity;
+    private final Activity activity;
     private final List<Result> items;
 
     /**
@@ -41,7 +42,7 @@ final class HistoryClickListener implements DialogInterface.OnClickListener {
      * @author dswitkin@google.com (Daniel Switkin)
      * @author Sean Owen
      */
-    HistoryClickListener(HistoryManager historyManager, DecoderActivity activity, List<Result> items) {
+    HistoryClickListener(HistoryManager historyManager, Activity activity, List<Result> items) {
         this.historyManager = historyManager;
         this.activity = activity;
         this.items = items;
@@ -80,10 +81,11 @@ final class HistoryClickListener implements DialogInterface.OnClickListener {
             });
             builder.setNegativeButton(R.string.button_cancel, null);
             builder.show();
-        } else {
+        } else if (activity instanceof IDecoderActivity) {
             // Display a single history entry.
             Result result = items.get(i);
-            Message message = Message.obtain(activity.getHandler(), R.id.decode_succeeded, result);
+            Message message = Message.obtain(((IDecoderActivity) activity).getHandler(),
+                    R.id.decode_succeeded, result);
             message.sendToTarget();
         }
     }

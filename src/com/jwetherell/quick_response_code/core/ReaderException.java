@@ -26,7 +26,8 @@ package com.jwetherell.quick_response_code.core;
 public abstract class ReaderException extends Exception {
     private static final long serialVersionUID = -1664790124320663603L;
 
-    ReaderException() { }
+    ReaderException() {
+    }
 
     // Prevent stack traces from being taken
     // srowen says: huh, my IDE is saying this is not an override. native methods can't be
