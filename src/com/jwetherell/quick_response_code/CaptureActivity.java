@@ -20,7 +20,7 @@ import com.jwetherell.quick_response_code.core.BarcodeFormat;
 import com.jwetherell.quick_response_code.core.Result;
 import com.jwetherell.quick_response_code.core.ResultMetadataType;
 import com.jwetherell.quick_response_code.core.ResultPoint;
-import com.jwetherell.quick_response_code.core.client.result.ResultButtonListener;
+import com.jwetherell.quick_response_code.core.result.ResultButtonListener;
 import com.jwetherell.quick_response_code.camera.CameraManager;
 import com.jwetherell.quick_response_code.history.HistoryManager;
 import com.jwetherell.quick_response_code.result.ResultHandler;

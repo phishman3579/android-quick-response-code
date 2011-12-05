@@ -29,8 +29,8 @@ import java.util.Date;
 import java.util.Locale;
 
 import com.jwetherell.quick_response_code.R;
-import com.jwetherell.quick_response_code.core.client.result.AddressBookParsedResult;
-import com.jwetherell.quick_response_code.core.client.result.ParsedResult;
+import com.jwetherell.quick_response_code.core.result.AddressBookParsedResult;
+import com.jwetherell.quick_response_code.core.result.ParsedResult;
 
 
 /**

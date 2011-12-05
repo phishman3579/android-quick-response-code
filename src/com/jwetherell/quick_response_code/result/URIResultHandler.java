@@ -18,8 +18,8 @@ package com.jwetherell.quick_response_code.result;
 
 import com.jwetherell.quick_response_code.R;
 import com.jwetherell.quick_response_code.LocaleManager;
-import com.jwetherell.quick_response_code.core.client.result.ParsedResult;
-import com.jwetherell.quick_response_code.core.client.result.URIParsedResult;
+import com.jwetherell.quick_response_code.core.result.ParsedResult;
+import com.jwetherell.quick_response_code.core.result.URIParsedResult;
 
 import android.app.Activity;
 

@@ -16,6 +16,7 @@
  -->
 <resources>
   <string name="app_name">Quick Response Code</string>
+  <string name="capture_name">Barcode Scanner</string>
   <string name="encoder_name">QR Code Encoder</string>
   <string name="decoder_name">QR Code Decoder</string>
   <string name="app_picker_name">Applications</string>

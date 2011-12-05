@@ -26,7 +26,7 @@ import java.net.URISyntaxException;
 
 import com.jwetherell.quick_response_code.R;
 import com.jwetherell.quick_response_code.HttpHelper;
-import com.jwetherell.quick_response_code.core.client.result.URIParsedResult;
+import com.jwetherell.quick_response_code.core.result.URIParsedResult;
 import com.jwetherell.quick_response_code.history.HistoryManager;
 
 

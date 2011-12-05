@@ -18,8 +18,8 @@ package com.jwetherell.quick_response_code.result;
 
 import com.jwetherell.quick_response_code.R;
 import com.jwetherell.quick_response_code.core.Result;
-import com.jwetherell.quick_response_code.core.client.result.ParsedResult;
-import com.jwetherell.quick_response_code.core.client.result.ProductParsedResult;
+import com.jwetherell.quick_response_code.core.result.ParsedResult;
+import com.jwetherell.quick_response_code.core.result.ProductParsedResult;
 
 import android.app.Activity;
 import android.app.AlertDialog;

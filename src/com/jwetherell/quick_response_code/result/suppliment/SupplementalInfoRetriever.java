@@ -36,10 +36,10 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
-import com.jwetherell.quick_response_code.core.client.result.ISBNParsedResult;
-import com.jwetherell.quick_response_code.core.client.result.ParsedResult;
-import com.jwetherell.quick_response_code.core.client.result.ProductParsedResult;
-import com.jwetherell.quick_response_code.core.client.result.URIParsedResult;
+import com.jwetherell.quick_response_code.core.result.ISBNParsedResult;
+import com.jwetherell.quick_response_code.core.result.ParsedResult;
+import com.jwetherell.quick_response_code.core.result.ProductParsedResult;
+import com.jwetherell.quick_response_code.core.result.URIParsedResult;
 import com.jwetherell.quick_response_code.history.HistoryManager;
 
 

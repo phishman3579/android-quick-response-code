@@ -17,8 +17,8 @@
 package com.jwetherell.quick_response_code.result;
 
 import com.jwetherell.quick_response_code.R;
-import com.jwetherell.quick_response_code.core.client.result.GeoParsedResult;
-import com.jwetherell.quick_response_code.core.client.result.ParsedResult;
+import com.jwetherell.quick_response_code.core.result.GeoParsedResult;
+import com.jwetherell.quick_response_code.core.result.ParsedResult;
 
 import android.app.Activity;
 

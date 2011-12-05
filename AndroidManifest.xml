@@ -37,6 +37,8 @@
 	        </activity>
 	
 		<activity android:name=".CaptureActivity"
+		    android:label="@string/capture_name"
+            android:icon="@drawable/launcher_icon"
 			android:screenOrientation="landscape" 
 			android:clearTaskOnLaunch="true"
 			android:stateNotNeeded="true" 

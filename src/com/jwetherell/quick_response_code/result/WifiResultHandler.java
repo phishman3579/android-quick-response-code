@@ -22,8 +22,8 @@ import android.net.wifi.WifiManager;
 import android.widget.Toast;
 
 import com.jwetherell.quick_response_code.R;
-import com.jwetherell.quick_response_code.core.client.result.ParsedResult;
-import com.jwetherell.quick_response_code.core.client.result.WifiParsedResult;
+import com.jwetherell.quick_response_code.core.result.ParsedResult;
+import com.jwetherell.quick_response_code.core.result.WifiParsedResult;
 import com.jwetherell.quick_response_code.wifi.WifiConfigManager;
 
 

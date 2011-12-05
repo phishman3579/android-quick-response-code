@@ -44,8 +44,8 @@ import com.jwetherell.quick_response_code.Intents;
 import com.jwetherell.quick_response_code.LocaleManager;
 import com.jwetherell.quick_response_code.book.SearchBookContentsActivity;
 import com.jwetherell.quick_response_code.core.Result;
-import com.jwetherell.quick_response_code.core.client.result.ParsedResult;
-import com.jwetherell.quick_response_code.core.client.result.ParsedResultType;
+import com.jwetherell.quick_response_code.core.result.ParsedResult;
+import com.jwetherell.quick_response_code.core.result.ParsedResultType;
 
 
 /**

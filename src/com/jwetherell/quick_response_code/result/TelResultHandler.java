@@ -17,8 +17,8 @@
 package com.jwetherell.quick_response_code.result;
 
 import com.jwetherell.quick_response_code.R;
-import com.jwetherell.quick_response_code.core.client.result.ParsedResult;
-import com.jwetherell.quick_response_code.core.client.result.TelParsedResult;
+import com.jwetherell.quick_response_code.core.result.ParsedResult;
+import com.jwetherell.quick_response_code.core.result.TelParsedResult;
 
 import android.app.Activity;
 import android.telephony.PhoneNumberUtils;
