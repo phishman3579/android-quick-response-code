@@ -50,15 +50,15 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
                    ResultMetadataType.ERROR_CORRECTION_LEVEL,
                    ResultMetadataType.POSSIBLE_COUNTRY);
     
-    private static CameraManager cameraManager = null;
-    private static DecoderActivityHandler handler = null;
-    private static ViewfinderView viewfinderView = null;
-    private static TextView statusView = null;
-    private static View resultView = null;
-    private static boolean hasSurface = false;
-    private static Collection<BarcodeFormat> decodeFormats = null;
-    private static String characterSet = null;
-    private static InactivityTimer inactivityTimer = null;
+    private CameraManager cameraManager = null;
+    private DecoderActivityHandler handler = null;
+    private ViewfinderView viewfinderView = null;
+    private TextView statusView = null;
+    private View resultView = null;
+    private boolean hasSurface = false;
+    private Collection<BarcodeFormat> decodeFormats = null;
+    private String characterSet = null;
+    private InactivityTimer inactivityTimer = null;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -161,18 +161,22 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
         // Ignore
     }
 
+    @Override
     public ViewfinderView getViewfinder() {
         return viewfinderView;
     }
 
+    @Override
     public Handler getHandler() {
         return handler;
     }
 
+    @Override
     public CameraManager getCameraManager() {
         return cameraManager;
     }
 
+    @Override
     public void handleDecode(Result rawResult, Bitmap barcode) {
         inactivityTimer.onActivity();
         ResultHandler resultHandler = ResultHandlerFactory.makeResultHandler(this, rawResult);
@@ -214,7 +218,7 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
         canvas.drawLine(a.getX(), a.getY(), b.getX(), b.getY(), paint);
     }
 
-    private static void resetStatusView() {
+    private void resetStatusView() {
         resultView.setVisibility(View.GONE);
         statusView.setText(R.string.msg_default_status);
         statusView.setVisibility(View.VISIBLE);
@@ -278,8 +282,7 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
         try {
             cameraManager.openDriver(surfaceHolder);
             // Creating the handler starts the preview, which can also throw a RuntimeException.
-            if (handler == null)
-                handler = new DecoderActivityHandler(this, decodeFormats, characterSet, cameraManager);
+            if (handler == null) handler = new DecoderActivityHandler(this, decodeFormats, characterSet, cameraManager);
         } catch (IOException ioe) {
             Log.w(TAG, ioe);
         } catch (RuntimeException e) {

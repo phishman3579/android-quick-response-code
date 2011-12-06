@@ -41,27 +41,23 @@ import com.jwetherell.quick_response_code.core.ResultPointCallback;
  */
 final class DecodeThread extends Thread {
     private static final String TAG = DecodeThread.class.getSimpleName();
-
     public static final String BARCODE_BITMAP = "barcode_bitmap";
 
     private final IDecoderActivity activity;
     private final Map<DecodeHintType, Object> hints;
-    private Handler handler;
     private final CountDownLatch handlerInitLatch;
 
-    DecodeThread(IDecoderActivity activity, Collection<BarcodeFormat> decodeFormats,
-            String characterSet, ResultPointCallback resultPointCallback) {
+    private Handler handler;
 
+    DecodeThread(IDecoderActivity activity, Collection<BarcodeFormat> decodeFormats, String characterSet, ResultPointCallback resultPointCallback) {
         this.activity = activity;
         handlerInitLatch = new CountDownLatch(1);
-
         hints = new EnumMap<DecodeHintType, Object>(DecodeHintType.class);
 
         // The prefs can't change while the thread is running, so pick them up once here.
         if (decodeFormats == null || decodeFormats.isEmpty()) {
             if (activity instanceof Activity) {
-                SharedPreferences prefs = PreferenceManager
-                        .getDefaultSharedPreferences((Activity) activity);
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences((Activity) activity);
                 decodeFormats = EnumSet.noneOf(BarcodeFormat.class);
                 if (prefs.getBoolean(Preferences.KEY_DECODE_1D, true)) {
                     decodeFormats.addAll(DecodeFormatManager.ONE_D_FORMATS);
@@ -100,5 +96,4 @@ final class DecodeThread extends Thread {
         handlerInitLatch.countDown();
         Looper.loop();
     }
-
 }
