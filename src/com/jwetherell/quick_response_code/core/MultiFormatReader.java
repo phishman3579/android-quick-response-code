@@ -102,7 +102,8 @@ public final class MultiFormatReader implements Reader {
                 : (Collection<BarcodeFormat>) hints.get(DecodeHintType.POSSIBLE_FORMATS);
         Collection<Reader> readers = new ArrayList<Reader>();
         if (formats != null) {
-            boolean addOneDReader = formats.contains(BarcodeFormat.UPC_A)
+            boolean addOneDReader = 
+                    formats.contains(BarcodeFormat.UPC_A)
                     || formats.contains(BarcodeFormat.UPC_E)
                     || formats.contains(BarcodeFormat.EAN_13)
                     || formats.contains(BarcodeFormat.EAN_8)
