@@ -44,8 +44,8 @@ public final class EncoderActivity extends Activity {
             //qrCodeEncoder = new QRCodeEncoder("1234567891011", null, Contents.Type.TEXT, BarcodeFormat.EAN_13.toString(), smallerDimension);
             //qrCodeEncoder = new QRCodeEncoder("12345678", null, Contents.Type.TEXT, BarcodeFormat.EAN_8.toString(), smallerDimension);
             //qrCodeEncoder = new QRCodeEncoder("1234", null, Contents.Type.TEXT, BarcodeFormat.ITF.toString(), smallerDimension);
-            qrCodeEncoder = new QRCodeEncoder("2345", null, Contents.Type.TEXT, BarcodeFormat.PDF_417.toString(), smallerDimension);
-            //qrCodeEncoder = new QRCodeEncoder("Hello", null, Contents.Type.TEXT, BarcodeFormat.QR_CODE.toString(), smallerDimension);
+            //qrCodeEncoder = new QRCodeEncoder("2345", null, Contents.Type.TEXT, BarcodeFormat.PDF_417.toString(), smallerDimension);
+            qrCodeEncoder = new QRCodeEncoder("Hello", null, Contents.Type.TEXT, BarcodeFormat.QR_CODE.toString(), smallerDimension);
             //qrCodeEncoder = new QRCodeEncoder("12345678910", null, Contents.Type.TEXT, BarcodeFormat.UPC_A.toString(), smallerDimension);
 
             Bitmap bitmap = qrCodeEncoder.encodeAsBitmap();
