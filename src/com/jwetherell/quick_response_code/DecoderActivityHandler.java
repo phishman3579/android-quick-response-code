@@ -39,14 +39,12 @@ import com.jwetherell.quick_response_code.core.Result;
  * @author dswitkin@google.com (Daniel Switkin)
  */
 public final class DecoderActivityHandler extends Handler {
-
     private static final String TAG = DecoderActivityHandler.class.getSimpleName();
 
     private final IDecoderActivity activity;
     private final DecodeThread decodeThread;
-    private State state;
     private final CameraManager cameraManager;
-
+    private State state;
     private enum State {
         PREVIEW, SUCCESS, DONE
     }

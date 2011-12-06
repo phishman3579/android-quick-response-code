@@ -91,8 +91,7 @@ final class DecodeHandler extends Handler {
             if (handler != null) {
                 Message message = Message.obtain(handler, R.id.decode_succeeded, rawResult);
                 Bundle bundle = new Bundle();
-                bundle.putParcelable(DecodeThread.BARCODE_BITMAP,
-                        source.renderCroppedGreyscaleBitmap());
+                bundle.putParcelable(DecodeThread.BARCODE_BITMAP, source.renderCroppedGreyscaleBitmap());
                 message.setData(bundle);
                 message.sendToTarget();
             }
