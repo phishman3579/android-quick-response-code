@@ -39,35 +39,10 @@ import java.util.Locale;
 public final class CalendarResultHandler extends ResultHandler {
 
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMdd", Locale.ENGLISH);
-    private static final DateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyyMMdd'T'HHmmss",
-            Locale.ENGLISH);
-
-    private static final int[] buttons = {
-        R.string.button_add_calendar
-    };
+    private static final DateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyyMMdd'T'HHmmss", Locale.ENGLISH);
 
     public CalendarResultHandler(Activity activity, ParsedResult result) {
         super(activity, result);
-    }
-
-    @Override
-    public int getButtonCount() {
-        return buttons.length;
-    }
-
-    @Override
-    public int getButtonText(int index) {
-        return buttons[index];
-    }
-
-    @Override
-    public void handleButtonPress(int index) {
-        CalendarParsedResult calendarResult = (CalendarParsedResult) getResult();
-        if (index == 0) {
-            addCalendarEvent(calendarResult.getSummary(), calendarResult.getStart(),
-                    calendarResult.getEnd(), calendarResult.getLocation(),
-                    calendarResult.getDescription());
-        }
     }
 
     @Override

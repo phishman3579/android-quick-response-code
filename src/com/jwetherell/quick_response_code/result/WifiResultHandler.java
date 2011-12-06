@@ -17,14 +17,10 @@
 package com.jwetherell.quick_response_code.result;
 
 import android.app.Activity;
-import android.content.Context;
-import android.net.wifi.WifiManager;
-import android.widget.Toast;
 
 import com.jwetherell.quick_response_code.R;
 import com.jwetherell.quick_response_code.core.result.ParsedResult;
 import com.jwetherell.quick_response_code.core.result.WifiParsedResult;
-import com.jwetherell.quick_response_code.wifi.WifiConfigManager;
 
 
 /**
@@ -39,34 +35,6 @@ public final class WifiResultHandler extends ResultHandler {
     public WifiResultHandler(Activity activity, ParsedResult result) {
         super(activity, result);
         parent = activity;
-    }
-
-    @Override
-    public int getButtonCount() {
-        // We just need one button, and that is to configure the wireless. This could change in the
-        // future.
-        return 1;
-    }
-
-    @Override
-    public int getButtonText(int index) {
-        if (index == 0) { return R.string.button_wifi; }
-        throw new ArrayIndexOutOfBoundsException();
-    }
-
-    @Override
-    public void handleButtonPress(int index) {
-        // Get the underlying wifi config
-        WifiParsedResult wifiResult = (WifiParsedResult) getResult();
-        if (index == 0) {
-            String ssid = wifiResult.getSsid();
-            String password = wifiResult.getPassword();
-            String networkType = wifiResult.getNetworkEncryption();
-            WifiManager wifiManager = (WifiManager) getActivity().getSystemService(
-                    Context.WIFI_SERVICE);
-            Toast.makeText(getActivity(), R.string.wifi_changing_network, Toast.LENGTH_LONG).show();
-            WifiConfigManager.configure(wifiManager, ssid, password, networkType);
-        }
     }
 
     // Display the name of the network and the network type to the user.

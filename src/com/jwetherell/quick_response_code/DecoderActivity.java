@@ -4,18 +4,20 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.EnumSet;
+import java.util.Map;
+import java.util.Set;
 
 import com.jwetherell.quick_response_code.R;
 import com.jwetherell.quick_response_code.camera.CameraManager;
 import com.jwetherell.quick_response_code.core.BarcodeFormat;
 import com.jwetherell.quick_response_code.core.Result;
+import com.jwetherell.quick_response_code.core.ResultMetadataType;
 import com.jwetherell.quick_response_code.core.ResultPoint;
-import com.jwetherell.quick_response_code.history.HistoryManager;
 import com.jwetherell.quick_response_code.result.ResultHandler;
 import com.jwetherell.quick_response_code.result.ResultHandlerFactory;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -24,6 +26,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -41,7 +44,12 @@ import android.widget.TextView;
  */
 public class DecoderActivity extends Activity implements IDecoderActivity, SurfaceHolder.Callback {
     private static final String TAG = DecoderActivity.class.getSimpleName();
-
+    private static final Set<ResultMetadataType> DISPLAYABLE_METADATA_TYPES =
+        EnumSet.of(ResultMetadataType.ISSUE_NUMBER,
+                   ResultMetadataType.SUGGESTED_PRICE,
+                   ResultMetadataType.ERROR_CORRECTION_LEVEL,
+                   ResultMetadataType.POSSIBLE_COUNTRY);
+    
     private static CameraManager cameraManager = null;
     private static DecoderActivityHandler handler = null;
     private static ViewfinderView viewfinderView = null;
@@ -50,9 +58,7 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
     private static boolean hasSurface = false;
     private static Collection<BarcodeFormat> decodeFormats = null;
     private static String characterSet = null;
-    private static HistoryManager historyManager = null;
     private static InactivityTimer inactivityTimer = null;
-    private static BeepManager beepManager = null;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -64,12 +70,10 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
 
         resultView = findViewById(R.id.result_view);
         statusView = (TextView) findViewById(R.id.status_view);
+        
         handler = null;
         hasSurface = false;
-        historyManager = new HistoryManager(this);
-        historyManager.trimHistory();
         inactivityTimer = new InactivityTimer(this);
-        beepManager = new BeepManager(this);
     }
 
     @Override
@@ -99,12 +103,6 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
             surfaceHolder.addCallback(this);
             surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         }
-
-        Intent intent = getIntent();
-        decodeFormats = null;
-        characterSet = intent.getStringExtra(Intents.Scan.CHARACTER_SET);
-
-        beepManager.updatePrefs();
 
         inactivityTimer.onResume();
     }
@@ -178,8 +176,6 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
     public void handleDecode(Result rawResult, Bitmap barcode) {
         inactivityTimer.onActivity();
         ResultHandler resultHandler = ResultHandlerFactory.makeResultHandler(this, rawResult);
-        historyManager.addHistoryItem(rawResult, resultHandler);
-        beepManager.playBeepSoundAndVibrate();
         drawResultPoints(barcode, rawResult);
         handleDecodeInternally(rawResult, resultHandler, barcode);
     }
@@ -199,9 +195,9 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
             if (points.length == 2) {
                 paint.setStrokeWidth(4.0f);
                 drawLine(canvas, paint, points[0], points[1]);
-            } else if (points.length == 4
-                    && (rawResult.getBarcodeFormat() == BarcodeFormat.UPC_A || rawResult
-                            .getBarcodeFormat() == BarcodeFormat.EAN_13)) {
+            } else if (points.length == 4 && 
+                       (rawResult.getBarcodeFormat() == BarcodeFormat.UPC_A || 
+                        rawResult.getBarcodeFormat() == BarcodeFormat.EAN_13)) {
                 // Hacky special case -- draw two lines, for the barcode and metadata
                 drawLine(canvas, paint, points[0], points[1]);
                 drawLine(canvas, paint, points[2], points[3]);
@@ -226,8 +222,7 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
     }
 
     // Put up our own UI for how to handle the decodBarcodeFormated contents.
-    private void handleDecodeInternally(Result rawResult, ResultHandler resultHandler,
-            Bitmap barcode) {
+    private void handleDecodeInternally(Result rawResult, ResultHandler resultHandler, Bitmap barcode) {
         statusView.setVisibility(View.GONE);
         viewfinderView.setVisibility(View.GONE);
         resultView.setVisibility(View.VISIBLE);
@@ -250,6 +245,33 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
         String formattedTime = formatter.format(new Date(rawResult.getTimestamp()));
         TextView timeTextView = (TextView) findViewById(R.id.time_text_view);
         timeTextView.setText(formattedTime);
+
+        TextView metaTextView = (TextView) findViewById(R.id.meta_text_view);
+        View metaTextViewLabel = findViewById(R.id.meta_text_view_label);
+        metaTextView.setVisibility(View.GONE);
+        metaTextViewLabel.setVisibility(View.GONE);
+        Map<ResultMetadataType,Object> metadata = rawResult.getResultMetadata();
+        if (metadata != null) {
+          StringBuilder metadataText = new StringBuilder(20);
+          for (Map.Entry<ResultMetadataType,Object> entry : metadata.entrySet()) {
+            if (DISPLAYABLE_METADATA_TYPES.contains(entry.getKey())) {
+              metadataText.append(entry.getValue()).append('\n');
+            }
+          }
+          if (metadataText.length() > 0) {
+            metadataText.setLength(metadataText.length() - 1);
+            metaTextView.setText(metadataText);
+            metaTextView.setVisibility(View.VISIBLE);
+            metaTextViewLabel.setVisibility(View.VISIBLE);
+          }
+        }
+        
+        TextView contentsTextView = (TextView) findViewById(R.id.contents_text_view);
+        CharSequence displayContents = resultHandler.getDisplayContents();
+        contentsTextView.setText(displayContents);
+        // Crudely scale betweeen 22 and 32 -- bigger font for shorter text
+        int scaledSize = Math.max(22, 32 - displayContents.length() / 4);
+        contentsTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, scaledSize);
     }
 
     private void initCamera(SurfaceHolder surfaceHolder) {
@@ -257,8 +279,7 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
             cameraManager.openDriver(surfaceHolder);
             // Creating the handler starts the preview, which can also throw a RuntimeException.
             if (handler == null)
-                handler = new DecoderActivityHandler(this, decodeFormats, characterSet,
-                        cameraManager);
+                handler = new DecoderActivityHandler(this, decodeFormats, characterSet, cameraManager);
         } catch (IOException ioe) {
             Log.w(TAG, ioe);
         } catch (RuntimeException e) {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jwetherell.quick_response_code.encode;
+package com.jwetherell.quick_response_code.qrcode;
 
 import android.provider.ContactsContract;
 
