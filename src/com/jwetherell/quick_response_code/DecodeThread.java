@@ -17,10 +17,8 @@
 package com.jwetherell.quick_response_code;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.util.Collection;
@@ -32,6 +30,7 @@ import java.util.concurrent.CountDownLatch;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.ResultPointCallback;
+import com.jwetherell.quick_response_code.data.Preferences;
 
 
 /**
@@ -57,15 +56,14 @@ final class DecodeThread extends Thread {
         // The prefs can't change while the thread is running, so pick them up once here.
         if (decodeFormats == null || decodeFormats.isEmpty()) {
             if (activity instanceof Activity) {
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences((Activity) activity);
                 decodeFormats = EnumSet.noneOf(BarcodeFormat.class);
-                if (prefs.getBoolean(Preferences.KEY_DECODE_1D, true)) {
+                if (Preferences.KEY_DECODE_1D) {
                     decodeFormats.addAll(DecodeFormatManager.ONE_D_FORMATS);
                 }
-                if (prefs.getBoolean(Preferences.KEY_DECODE_QR, true)) {
+                if (Preferences.KEY_DECODE_QR) {
                     decodeFormats.addAll(DecodeFormatManager.QR_CODE_FORMATS);
                 }
-                if (prefs.getBoolean(Preferences.KEY_DECODE_DATA_MATRIX, true)) {
+                if (Preferences.KEY_DECODE_DATA_MATRIX) {
                     decodeFormats.addAll(DecodeFormatManager.DATA_MATRIX_FORMATS);
                 }
             } else {

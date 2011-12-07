@@ -63,16 +63,16 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
                    ResultMetadataType.SUGGESTED_PRICE,
                    ResultMetadataType.ERROR_CORRECTION_LEVEL,
                    ResultMetadataType.POSSIBLE_COUNTRY);
-    
-    private CameraManager cameraManager = null;
+
     private DecoderActivityHandler handler = null;
     private ViewfinderView viewfinderView = null;
     private TextView statusView = null;
     private View resultView = null;
+    private CameraManager cameraManager = null;
     private boolean hasSurface = false;
     private Collection<BarcodeFormat> decodeFormats = null;
     private String characterSet = null;
-    private InactivityTimer inactivityTimer = null;
+    private boolean inScanMode = false;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -84,10 +84,15 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
 
         resultView = findViewById(R.id.result_view);
         statusView = (TextView) findViewById(R.id.status_view);
-        
+
         handler = null;
         hasSurface = false;
-        inactivityTimer = new InactivityTimer(this);
+        inScanMode = false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
@@ -96,10 +101,8 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
 
         // CameraManager must be initialized here, not in onCreate(). This is necessary because we
         // don't want to open the camera driver and measure the screen size if we're going to show
-        // the
-        // help on first launch. That led to bugs where the scanning rectangle was the wrong size
-        // and
-        // partially off screen.
+        // the help on first launch. That led to bugs where the scanning rectangle was the wrong size
+        // and partially off screen.
         cameraManager = new CameraManager(getApplication());
 
         viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
@@ -117,37 +120,31 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
             surfaceHolder.addCallback(this);
             surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         }
-
-        inactivityTimer.onResume();
     }
 
     @Override
     protected void onPause() {
+        super.onPause();
+        
         if (handler != null) {
             handler.quitSynchronously();
             handler = null;
         }
-        inactivityTimer.onPause();
+
         cameraManager.closeDriver();
+        
         if (!hasSurface) {
             SurfaceView surfaceView = (SurfaceView) findViewById(R.id.preview_view);
             SurfaceHolder surfaceHolder = surfaceView.getHolder();
             surfaceHolder.removeCallback(this);
         }
-        super.onPause();
-    }
-
-    @Override
-    protected void onDestroy() {
-        inactivityTimer.shutdown();
-        super.onDestroy();
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            resetStatusView();
-            finish();
+            if (inScanMode) finish();
+            else resetStatusView();
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_FOCUS || keyCode == KeyEvent.KEYCODE_CAMERA) {
             // Handle these events so they don't launch the Camera app
@@ -192,7 +189,6 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
 
     @Override
     public void handleDecode(Result rawResult, Bitmap barcode) {
-        inactivityTimer.onActivity();
         ResultHandler resultHandler = ResultHandlerFactory.makeResultHandler(this, rawResult);
         drawResultPoints(barcode, rawResult);
         handleDecodeInternally(rawResult, resultHandler, barcode);
@@ -214,8 +210,8 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
                 paint.setStrokeWidth(4.0f);
                 drawLine(canvas, paint, points[0], points[1]);
             } else if (points.length == 4 && 
-                       (rawResult.getBarcodeFormat() == BarcodeFormat.UPC_A || 
-                        rawResult.getBarcodeFormat() == BarcodeFormat.EAN_13)) {
+                    (rawResult.getBarcodeFormat() == BarcodeFormat.UPC_A || 
+                            rawResult.getBarcodeFormat() == BarcodeFormat.EAN_13)) {
                 // Hacky special case -- draw two lines, for the barcode and metadata
                 drawLine(canvas, paint, points[0], points[1]);
                 drawLine(canvas, paint, points[2], points[3]);
@@ -233,6 +229,7 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
     }
 
     private void resetStatusView() {
+        inScanMode = true;
         resultView.setVisibility(View.GONE);
         statusView.setText(R.string.msg_default_status);
         statusView.setVisibility(View.VISIBLE);
@@ -241,14 +238,14 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
 
     // Put up our own UI for how to handle the decodBarcodeFormated contents.
     private void handleDecodeInternally(Result rawResult, ResultHandler resultHandler, Bitmap barcode) {
+        inScanMode = false;
         statusView.setVisibility(View.GONE);
         viewfinderView.setVisibility(View.GONE);
         resultView.setVisibility(View.VISIBLE);
 
         ImageView barcodeImageView = (ImageView) findViewById(R.id.barcode_image_view);
         if (barcode == null) {
-            barcodeImageView.setImageBitmap(BitmapFactory.decodeResource(getResources(),
-                    R.drawable.icon));
+            barcodeImageView.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.icon));
         } else {
             barcodeImageView.setImageBitmap(barcode);
         }
@@ -270,20 +267,20 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
         metaTextViewLabel.setVisibility(View.GONE);
         Map<ResultMetadataType,Object> metadata = rawResult.getResultMetadata();
         if (metadata != null) {
-          StringBuilder metadataText = new StringBuilder(20);
-          for (Map.Entry<ResultMetadataType,Object> entry : metadata.entrySet()) {
-            if (DISPLAYABLE_METADATA_TYPES.contains(entry.getKey())) {
-              metadataText.append(entry.getValue()).append('\n');
+            StringBuilder metadataText = new StringBuilder(20);
+            for (Map.Entry<ResultMetadataType,Object> entry : metadata.entrySet()) {
+                if (DISPLAYABLE_METADATA_TYPES.contains(entry.getKey())) {
+                    metadataText.append(entry.getValue()).append('\n');
+                }
             }
-          }
-          if (metadataText.length() > 0) {
-            metadataText.setLength(metadataText.length() - 1);
-            metaTextView.setText(metadataText);
-            metaTextView.setVisibility(View.VISIBLE);
-            metaTextViewLabel.setVisibility(View.VISIBLE);
-          }
+            if (metadataText.length() > 0) {
+                metadataText.setLength(metadataText.length() - 1);
+                metaTextView.setText(metadataText);
+                metaTextView.setVisibility(View.VISIBLE);
+                metaTextViewLabel.setVisibility(View.VISIBLE);
+            }
         }
-        
+
         TextView contentsTextView = (TextView) findViewById(R.id.contents_text_view);
         CharSequence displayContents = resultHandler.getDisplayContents();
         contentsTextView.setText(displayContents);

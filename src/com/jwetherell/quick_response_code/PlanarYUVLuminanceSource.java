@@ -43,8 +43,8 @@ public final class PlanarYUVLuminanceSource extends LuminanceSource {
             int top, int width, int height, boolean reverseHorizontal) {
         super(width, height);
 
-        if (left + width > dataWidth || top + height > dataHeight) { throw new IllegalArgumentException(
-                "Crop rectangle does not fit within image data."); }
+        if (left + width > dataWidth || top + height > dataHeight) { 
+            throw new IllegalArgumentException("Crop rectangle does not fit within image data."); }
 
         this.yuvData = yuvData;
         this.dataWidth = dataWidth;
@@ -58,8 +58,7 @@ public final class PlanarYUVLuminanceSource extends LuminanceSource {
 
     @Override
     public byte[] getRow(int y, byte[] row) {
-        if (y < 0 || y >= getHeight()) { throw new IllegalArgumentException(
-                "Requested row is outside the image: " + y); }
+        if (y < 0 || y >= getHeight()) { throw new IllegalArgumentException("Requested row is outside the image: " + y); }
         int width = getWidth();
         if (row == null || row.length < width) {
             row = new byte[width];

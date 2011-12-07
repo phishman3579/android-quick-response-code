@@ -27,14 +27,14 @@ import android.view.WindowManager;
 
 import java.util.Collection;
 
-import com.jwetherell.quick_response_code.Preferences;
+import com.jwetherell.quick_response_code.data.Preferences;
 
 
 /**
  * A class which deals with reading, parsing, and setting the camera parameters which are used to
  * configure the camera hardware.
  */
-final class CameraConfigurationManager {
+public final class CameraConfigurationManager {
 
     private static final String TAG = "CameraConfiguration";
     private static final int MIN_PREVIEW_PIXELS = 320 * 240; // small screen
@@ -44,7 +44,7 @@ final class CameraConfigurationManager {
     private Point screenResolution;
     private Point cameraResolution;
 
-    CameraConfigurationManager(Context context) {
+    public CameraConfigurationManager(Context context) {
         this.context = context;
     }
 
@@ -93,11 +93,11 @@ final class CameraConfigurationManager {
         camera.setParameters(parameters);
     }
 
-    Point getCameraResolution() {
+    public Point getCameraResolution() {
         return cameraResolution;
     }
 
-    Point getScreenResolution() {
+    public Point getScreenResolution() {
         return screenResolution;
     }
 
@@ -105,18 +105,10 @@ final class CameraConfigurationManager {
         Camera.Parameters parameters = camera.getParameters();
         doSetTorch(parameters, newSetting);
         camera.setParameters(parameters);
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean currentSetting = prefs.getBoolean(Preferences.KEY_FRONT_LIGHT, false);
-        if (currentSetting != newSetting) {
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean(Preferences.KEY_FRONT_LIGHT, newSetting);
-            editor.commit();
-        }
     }
 
     private static void initializeTorch(Camera.Parameters parameters, SharedPreferences prefs) {
-        boolean currentSetting = prefs.getBoolean(Preferences.KEY_FRONT_LIGHT, false);
-        doSetTorch(parameters, currentSetting);
+        doSetTorch(parameters, Preferences.KEY_FRONT_LIGHT);
     }
 
     private static void doSetTorch(Camera.Parameters parameters, boolean newSetting) {

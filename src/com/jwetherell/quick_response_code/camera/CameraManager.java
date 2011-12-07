@@ -17,19 +17,17 @@
 package com.jwetherell.quick_response_code.camera;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
 import java.io.IOException;
 
-import com.jwetherell.quick_response_code.Preferences;
 import com.jwetherell.quick_response_code.PlanarYUVLuminanceSource;
+import com.jwetherell.quick_response_code.data.Preferences;
 
 
 /**
@@ -48,16 +46,15 @@ public final class CameraManager {
     private static final int MAX_FRAME_WIDTH = 600;
     private static final int MAX_FRAME_HEIGHT = 400;
 
-    private final Context context;
     private final CameraConfigurationManager configManager;
     private Camera camera;
     private Rect framingRect;
     private Rect framingRectInPreview;
     private boolean initialized;
     private boolean previewing;
-    private boolean reverseImage;
     private int requestedFramingRectWidth;
     private int requestedFramingRectHeight;
+    
     /**
      * Preview frames are delivered here, which we pass on to the registered handler. Make sure to
      * clear the handler so it will only receive one message.
@@ -67,12 +64,19 @@ public final class CameraManager {
     private final AutoFocusCallback autoFocusCallback;
 
     public CameraManager(Context context) {
-        this.context = context;
         this.configManager = new CameraConfigurationManager(context);
         previewCallback = new PreviewCallback(configManager);
         autoFocusCallback = new AutoFocusCallback();
     }
 
+    public CameraConfigurationManager getConfigurationManager() {
+        return configManager;
+    }
+
+    public Camera getCamera() {
+        return camera;
+    }
+    
     /**
      * Opens the camera driver and initializes the hardware parameters.
      * 
@@ -98,9 +102,6 @@ public final class CameraManager {
             }
         }
         configManager.setDesiredCameraParameters(theCamera);
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        reverseImage = prefs.getBoolean(Preferences.KEY_REVERSE_IMAGE, false);
     }
 
     /**
@@ -261,7 +262,6 @@ public final class CameraManager {
         Rect rect = getFramingRectInPreview();
         if (rect == null) { return null; }
         // Go ahead and assume it's YUV rather than die.
-        return new PlanarYUVLuminanceSource(data, width, height, rect.left, rect.top, rect.width(),
-                rect.height(), reverseImage);
+        return new PlanarYUVLuminanceSource(data, width, height, rect.left, rect.top, rect.width(), rect.height(), Preferences.KEY_REVERSE_IMAGE);
     }
 }

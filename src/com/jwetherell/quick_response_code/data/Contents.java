@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jwetherell.quick_response_code;
+package com.jwetherell.quick_response_code.data;
 
 import android.provider.ContactsContract;
 
@@ -107,5 +107,4 @@ public final class Contents {
             ContactsContract.Intents.Insert.SECONDARY_EMAIL_TYPE,
             ContactsContract.Intents.Insert.TERTIARY_EMAIL_TYPE
     };
-
 }

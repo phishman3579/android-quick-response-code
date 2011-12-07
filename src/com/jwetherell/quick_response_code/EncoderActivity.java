@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.jwetherell.quick_response_code.R;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
+import com.jwetherell.quick_response_code.data.Contents;
 import com.jwetherell.quick_response_code.qrcode.QRCodeEncoder;
 
 
