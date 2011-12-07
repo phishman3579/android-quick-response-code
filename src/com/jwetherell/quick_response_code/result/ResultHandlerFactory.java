@@ -31,8 +31,7 @@ public final class ResultHandlerFactory {
     private ResultHandlerFactory() {
     }
 
-    public static ResultHandler makeResultHandler(Activity activity,
-            Result rawResult) {
+    public static ResultHandler makeResultHandler(Activity activity, Result rawResult) {
         ParsedResult result = parseResult(rawResult);
         switch (result.getType()) {
             case ADDRESSBOOK:
