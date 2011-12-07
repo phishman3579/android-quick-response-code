@@ -16,8 +16,8 @@
 
 package com.jwetherell.quick_response_code.qrcode.decoder;
 
-import com.jwetherell.quick_response_code.core.FormatException;
-import com.jwetherell.quick_response_code.core.common.BitMatrix;
+import com.google.zxing.FormatException;
+import com.google.zxing.common.BitMatrix;
 
 
 /**

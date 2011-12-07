@@ -23,11 +23,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-import com.jwetherell.quick_response_code.core.DecodeHintType;
-import com.jwetherell.quick_response_code.core.NotFoundException;
-import com.jwetherell.quick_response_code.core.ResultPoint;
-import com.jwetherell.quick_response_code.core.ResultPointCallback;
-import com.jwetherell.quick_response_code.core.common.BitMatrix;
+import com.google.zxing.DecodeHintType;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.ResultPoint;
+import com.google.zxing.ResultPointCallback;
+import com.google.zxing.common.BitMatrix;
 
 
 /**

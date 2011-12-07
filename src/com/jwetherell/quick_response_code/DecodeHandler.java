@@ -25,12 +25,13 @@ import android.util.Log;
 import java.util.Map;
 
 import com.jwetherell.quick_response_code.R;
-import com.jwetherell.quick_response_code.core.BinaryBitmap;
-import com.jwetherell.quick_response_code.core.DecodeHintType;
-import com.jwetherell.quick_response_code.core.MultiFormatReader;
-import com.jwetherell.quick_response_code.core.ReaderException;
-import com.jwetherell.quick_response_code.core.Result;
-import com.jwetherell.quick_response_code.core.common.HybridBinarizer;
+
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.DecodeHintType;
+import com.google.zxing.MultiFormatReader;
+import com.google.zxing.ReaderException;
+import com.google.zxing.Result;
+import com.google.zxing.common.HybridBinarizer;
 
 
 final class DecodeHandler extends Handler {

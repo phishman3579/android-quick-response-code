@@ -1,12 +1,12 @@
 /*
  * Copyright (C) 2008 ZXing authors
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,8 +19,9 @@ package com.jwetherell.quick_response_code.result;
 import android.app.Activity;
 
 import com.jwetherell.quick_response_code.R;
-import com.jwetherell.quick_response_code.core.result.ParsedResult;
-import com.jwetherell.quick_response_code.core.result.WifiParsedResult;
+
+import com.google.zxing.client.result.ParsedResult;
+import com.google.zxing.client.result.WifiParsedResult;
 
 
 /**
@@ -29,7 +30,7 @@ import com.jwetherell.quick_response_code.core.result.WifiParsedResult;
  * @author viki@google.com (Vikram Aggarwal)
  */
 public final class WifiResultHandler extends ResultHandler {
-
+    
     private final Activity parent;
 
     public WifiResultHandler(Activity activity, ParsedResult result) {
@@ -43,9 +44,11 @@ public final class WifiResultHandler extends ResultHandler {
         WifiParsedResult wifiResult = (WifiParsedResult) getResult();
         StringBuilder contents = new StringBuilder(50);
         String wifiLabel = parent.getString(R.string.wifi_ssid_label);
-        ParsedResult.maybeAppend(wifiLabel + '\n' + wifiResult.getSsid(), contents);
+        ParsedResult.maybeAppend(wifiLabel + '\n' + wifiResult.getSsid(),
+                contents);
         String typeLabel = parent.getString(R.string.wifi_type_label);
-        ParsedResult.maybeAppend(typeLabel + '\n' + wifiResult.getNetworkEncryption(), contents);
+        ParsedResult.maybeAppend(
+                typeLabel + '\n' + wifiResult.getNetworkEncryption(), contents);
         return contents.toString();
     }
 

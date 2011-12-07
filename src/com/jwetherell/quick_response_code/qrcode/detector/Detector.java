@@ -18,15 +18,15 @@ package com.jwetherell.quick_response_code.qrcode.detector;
 
 import java.util.Map;
 
-import com.jwetherell.quick_response_code.core.DecodeHintType;
-import com.jwetherell.quick_response_code.core.FormatException;
-import com.jwetherell.quick_response_code.core.NotFoundException;
-import com.jwetherell.quick_response_code.core.ResultPoint;
-import com.jwetherell.quick_response_code.core.ResultPointCallback;
-import com.jwetherell.quick_response_code.core.common.BitMatrix;
-import com.jwetherell.quick_response_code.core.common.DetectorResult;
-import com.jwetherell.quick_response_code.core.common.GridSampler;
-import com.jwetherell.quick_response_code.core.common.PerspectiveTransform;
+import com.google.zxing.DecodeHintType;
+import com.google.zxing.FormatException;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.ResultPoint;
+import com.google.zxing.ResultPointCallback;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.common.DetectorResult;
+import com.google.zxing.common.GridSampler;
+import com.google.zxing.common.PerspectiveTransform;
 import com.jwetherell.quick_response_code.qrcode.decoder.Version;
 
 

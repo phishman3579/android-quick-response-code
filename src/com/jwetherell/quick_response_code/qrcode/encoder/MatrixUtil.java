@@ -16,8 +16,8 @@
 
 package com.jwetherell.quick_response_code.qrcode.encoder;
 
-import com.jwetherell.quick_response_code.core.WriterException;
-import com.jwetherell.quick_response_code.core.common.BitArray;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitArray;
 import com.jwetherell.quick_response_code.qrcode.decoder.ErrorCorrectionLevel;
 
 

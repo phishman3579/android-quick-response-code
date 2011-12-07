@@ -24,10 +24,10 @@ import java.util.Set;
 
 import com.jwetherell.quick_response_code.R;
 import com.jwetherell.quick_response_code.camera.CameraManager;
-import com.jwetherell.quick_response_code.core.BarcodeFormat;
-import com.jwetherell.quick_response_code.core.Result;
-import com.jwetherell.quick_response_code.core.ResultMetadataType;
-import com.jwetherell.quick_response_code.core.ResultPoint;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.Result;
+import com.google.zxing.ResultMetadataType;
+import com.google.zxing.ResultPoint;
 import com.jwetherell.quick_response_code.result.ResultHandler;
 import com.jwetherell.quick_response_code.result.ResultHandlerFactory;
 

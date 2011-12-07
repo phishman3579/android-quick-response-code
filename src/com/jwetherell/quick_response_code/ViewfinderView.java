@@ -30,7 +30,7 @@ import java.util.List;
 
 import com.jwetherell.quick_response_code.R;
 import com.jwetherell.quick_response_code.camera.CameraManager;
-import com.jwetherell.quick_response_code.core.ResultPoint;
+import com.google.zxing.ResultPoint;
 
 
 /**

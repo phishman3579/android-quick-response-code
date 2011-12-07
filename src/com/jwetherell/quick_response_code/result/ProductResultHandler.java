@@ -1,12 +1,12 @@
 /*
  * Copyright (C) 2008 ZXing authors
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,12 +16,14 @@
 
 package com.jwetherell.quick_response_code.result;
 
+import com.google.zxing.Result;
+
 import com.jwetherell.quick_response_code.R;
-import com.jwetherell.quick_response_code.core.Result;
-import com.jwetherell.quick_response_code.core.result.ParsedResult;
+
+import com.google.zxing.client.result.ParsedResult;
+import com.google.zxing.client.result.ProductParsedResult;
 
 import android.app.Activity;
-
 
 
 /**
@@ -35,6 +37,15 @@ public final class ProductResultHandler extends ResultHandler {
         super(activity, result, rawResult);
     }
 
+    @Override
+    public CharSequence getDisplayContents() {
+        ProductParsedResult result = (ProductParsedResult) getResult();
+        StringBuilder contents = new StringBuilder(100);
+        ParsedResult.maybeAppend(result.getNormalizedProductID(), contents);
+        contents.trimToSize();
+        return contents.toString();
+    }
+    
     @Override
     public int getDisplayTitle() {
         return R.string.result_product;

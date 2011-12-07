@@ -29,9 +29,9 @@ import java.util.EnumSet;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
-import com.jwetherell.quick_response_code.core.BarcodeFormat;
-import com.jwetherell.quick_response_code.core.DecodeHintType;
-import com.jwetherell.quick_response_code.core.ResultPointCallback;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.DecodeHintType;
+import com.google.zxing.ResultPointCallback;
 
 
 /**

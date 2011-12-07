@@ -16,7 +16,7 @@
 
 package com.jwetherell.quick_response_code;
 
-import com.jwetherell.quick_response_code.core.LuminanceSource;
+import com.google.zxing.LuminanceSource;
 
 import android.graphics.Bitmap;
 

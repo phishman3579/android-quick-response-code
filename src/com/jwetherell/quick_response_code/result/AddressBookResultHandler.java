@@ -1,12 +1,12 @@
 /*
  * Copyright (C) 2008 ZXing authors
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,6 +15,11 @@
  */
 
 package com.jwetherell.quick_response_code.result;
+
+import com.jwetherell.quick_response_code.R;
+
+import com.google.zxing.client.result.AddressBookParsedResult;
+import com.google.zxing.client.result.ParsedResult;
 
 import android.app.Activity;
 import android.telephony.PhoneNumberUtils;
@@ -28,10 +33,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import com.jwetherell.quick_response_code.R;
-import com.jwetherell.quick_response_code.core.result.AddressBookParsedResult;
-import com.jwetherell.quick_response_code.core.result.ParsedResult;
-
 
 /**
  * Handles address book entries.
@@ -44,8 +45,7 @@ public final class AddressBookResultHandler extends ResultHandler {
             new SimpleDateFormat("yyyyMMdd", Locale.ENGLISH),
             new SimpleDateFormat("yyyyMMdd'T'HHmmss", Locale.ENGLISH),
             new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH),
-            new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH),
-    };
+            new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH), };
 
     private final boolean[] fields;
 
@@ -64,17 +64,6 @@ public final class AddressBookResultHandler extends ResultHandler {
         fields[1] = hasAddress;
         fields[2] = hasPhoneNumber;
         fields[3] = hasEmailAddress;
-    }
-
-    private static Date parseDate(String s) {
-        for (DateFormat currentFomat : DATE_FORMATS) {
-            synchronized (currentFomat) {
-                currentFomat.setLenient(false);
-                Date result = currentFomat.parse(s, new ParsePosition(0));
-                if (result != null) { return result; }
-            }
-        }
-        return null;
     }
 
     // Overriden so we can hyphenate phone numbers, format birthdays, and bold the name.
@@ -98,7 +87,7 @@ public final class AddressBookResultHandler extends ResultHandler {
         String[] numbers = result.getPhoneNumbers();
         if (numbers != null) {
             for (String number : numbers) {
-                ParsedResult.maybeAppend(PhoneNumberUtils.formatNumber(number), contents);
+                ParsedResult.maybeAppend(PhoneNumberUtils.formatNumber(number),contents);
             }
         }
         ParsedResult.maybeAppend(result.getEmails(), contents);
@@ -108,8 +97,7 @@ public final class AddressBookResultHandler extends ResultHandler {
         if (birthday != null && birthday.length() > 0) {
             Date date = parseDate(birthday);
             if (date != null) {
-                ParsedResult.maybeAppend(DateFormat.getDateInstance().format(date.getTime()),
-                        contents);
+                ParsedResult.maybeAppend(DateFormat.getDateInstance().format(date.getTime()),contents);
             }
         }
         ParsedResult.maybeAppend(result.getNote(), contents);
@@ -117,11 +105,25 @@ public final class AddressBookResultHandler extends ResultHandler {
         if (namesLength > 0) {
             // Bold the full name to make it stand out a bit.
             Spannable styled = new SpannableString(contents.toString());
-            styled.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, namesLength, 0);
+            styled.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0,
+                    namesLength, 0);
             return styled;
         } else {
             return contents.toString();
         }
+    }
+
+    private static Date parseDate(String s) {
+        for (DateFormat currentFomat : DATE_FORMATS) {
+            synchronized (currentFomat) {
+                currentFomat.setLenient(false);
+                Date result = currentFomat.parse(s, new ParsePosition(0));
+                if (result != null) {
+                    return result;
+                }
+            }
+        }
+        return null;
     }
 
     @Override

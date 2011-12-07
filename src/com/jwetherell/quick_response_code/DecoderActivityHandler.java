@@ -28,8 +28,8 @@ import java.util.Collection;
 
 import com.jwetherell.quick_response_code.R;
 import com.jwetherell.quick_response_code.camera.CameraManager;
-import com.jwetherell.quick_response_code.core.BarcodeFormat;
-import com.jwetherell.quick_response_code.core.Result;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.Result;
 
 
 /**

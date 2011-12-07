@@ -21,12 +21,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
-import com.jwetherell.quick_response_code.core.EncodeHintType;
-import com.jwetherell.quick_response_code.core.WriterException;
-import com.jwetherell.quick_response_code.core.common.BitArray;
-import com.jwetherell.quick_response_code.core.common.CharacterSetECI;
-import com.jwetherell.quick_response_code.core.common.reedsolomon.GenericGF;
-import com.jwetherell.quick_response_code.core.common.reedsolomon.ReedSolomonEncoder;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitArray;
+import com.google.zxing.common.CharacterSetECI;
+import com.google.zxing.common.reedsolomon.GenericGF;
+import com.google.zxing.common.reedsolomon.ReedSolomonEncoder;
 import com.jwetherell.quick_response_code.qrcode.decoder.ErrorCorrectionLevel;
 import com.jwetherell.quick_response_code.qrcode.decoder.Mode;
 import com.jwetherell.quick_response_code.qrcode.decoder.Version;

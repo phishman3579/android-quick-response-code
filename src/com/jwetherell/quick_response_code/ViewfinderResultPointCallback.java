@@ -16,8 +16,8 @@
 
 package com.jwetherell.quick_response_code;
 
-import com.jwetherell.quick_response_code.core.ResultPoint;
-import com.jwetherell.quick_response_code.core.ResultPointCallback;
+import com.google.zxing.ResultPoint;
+import com.google.zxing.ResultPointCallback;
 
 
 final class ViewfinderResultPointCallback implements ResultPointCallback {

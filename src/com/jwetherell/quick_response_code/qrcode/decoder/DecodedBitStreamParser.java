@@ -22,12 +22,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import com.jwetherell.quick_response_code.core.DecodeHintType;
-import com.jwetherell.quick_response_code.core.FormatException;
-import com.jwetherell.quick_response_code.core.common.BitSource;
-import com.jwetherell.quick_response_code.core.common.CharacterSetECI;
-import com.jwetherell.quick_response_code.core.common.DecoderResult;
-import com.jwetherell.quick_response_code.core.common.StringUtils;
+import com.google.zxing.DecodeHintType;
+import com.google.zxing.FormatException;
+import com.google.zxing.common.BitSource;
+import com.google.zxing.common.CharacterSetECI;
+import com.google.zxing.common.DecoderResult;
+import com.google.zxing.common.StringUtils;
 
 
 /**

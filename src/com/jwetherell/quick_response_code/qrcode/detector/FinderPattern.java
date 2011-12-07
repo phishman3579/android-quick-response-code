@@ -16,7 +16,7 @@
 
 package com.jwetherell.quick_response_code.qrcode.detector;
 
-import com.jwetherell.quick_response_code.core.ResultPoint;
+import com.google.zxing.ResultPoint;
 
 
 /**

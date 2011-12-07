@@ -19,9 +19,9 @@ package com.jwetherell.quick_response_code.qrcode.detector;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jwetherell.quick_response_code.core.NotFoundException;
-import com.jwetherell.quick_response_code.core.ResultPointCallback;
-import com.jwetherell.quick_response_code.core.common.BitMatrix;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.ResultPointCallback;
+import com.google.zxing.common.BitMatrix;
 
 
 /**

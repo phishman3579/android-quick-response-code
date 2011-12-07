@@ -38,15 +38,15 @@ import java.util.Map;
 import com.jwetherell.quick_response_code.Contents;
 import com.jwetherell.quick_response_code.Intents;
 import com.jwetherell.quick_response_code.R;
-import com.jwetherell.quick_response_code.core.BarcodeFormat;
-import com.jwetherell.quick_response_code.core.EncodeHintType;
-import com.jwetherell.quick_response_code.core.MultiFormatWriter;
-import com.jwetherell.quick_response_code.core.Result;
-import com.jwetherell.quick_response_code.core.WriterException;
-import com.jwetherell.quick_response_code.core.common.BitMatrix;
-import com.jwetherell.quick_response_code.core.result.AddressBookParsedResult;
-import com.jwetherell.quick_response_code.core.result.ParsedResult;
-import com.jwetherell.quick_response_code.core.result.ResultParser;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.Result;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.result.AddressBookParsedResult;
+import com.google.zxing.client.result.ParsedResult;
+import com.google.zxing.client.result.ResultParser;
+import com.google.zxing.common.BitMatrix;
 
 
 /**

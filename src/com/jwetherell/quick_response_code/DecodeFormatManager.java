@@ -22,7 +22,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.jwetherell.quick_response_code.core.BarcodeFormat;
+import com.google.zxing.BarcodeFormat;
 
 import android.content.Intent;
 import android.net.Uri;

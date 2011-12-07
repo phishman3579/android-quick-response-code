@@ -18,11 +18,11 @@ package com.jwetherell.quick_response_code.qrcode;
 
 import java.util.Map;
 
-import com.jwetherell.quick_response_code.core.BarcodeFormat;
-import com.jwetherell.quick_response_code.core.EncodeHintType;
-import com.jwetherell.quick_response_code.core.Writer;
-import com.jwetherell.quick_response_code.core.WriterException;
-import com.jwetherell.quick_response_code.core.common.BitMatrix;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.Writer;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
 import com.jwetherell.quick_response_code.qrcode.decoder.ErrorCorrectionLevel;
 import com.jwetherell.quick_response_code.qrcode.encoder.ByteMatrix;
 import com.jwetherell.quick_response_code.qrcode.encoder.Encoder;

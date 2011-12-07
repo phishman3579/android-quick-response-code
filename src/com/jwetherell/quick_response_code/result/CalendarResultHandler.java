@@ -1,12 +1,12 @@
 /*
  * Copyright (C) 2008 ZXing authors
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,8 +17,8 @@
 package com.jwetherell.quick_response_code.result;
 
 import com.jwetherell.quick_response_code.R;
-import com.jwetherell.quick_response_code.core.result.CalendarParsedResult;
-import com.jwetherell.quick_response_code.core.result.ParsedResult;
+import com.google.zxing.client.result.CalendarParsedResult;
+import com.google.zxing.client.result.ParsedResult;
 
 import android.app.Activity;
 
@@ -65,34 +65,37 @@ public final class CalendarResultHandler extends ResultHandler {
         return result.toString();
     }
 
-    private static void appendTime(String when, StringBuilder result, boolean end,
-            boolean sameStartEnd) {
+    private static void appendTime(String when, StringBuilder result, boolean end, boolean sameStartEnd) {
         if (when.length() == 8) {
             // Show only year/month/day
             Date date;
             synchronized (DATE_FORMAT) {
                 date = DATE_FORMAT.parse(when, new ParsePosition(0));
             }
-            // if it's all-day and this is the end date, it's exclusive, so show the user
+            // if it's all-day and this is the end date, it's exclusive, so show
+            // the user
             // that it ends on the day before to make more intuitive sense.
-            // But don't do it if the event already (incorrectly?) specifies the same start/end
+            // But don't do it if the event already (incorrectly?) specifies the
+            // same start/end
             if (end && !sameStartEnd) {
                 date = new Date(date.getTime() - 24 * 60 * 60 * 1000);
             }
-            ParsedResult.maybeAppend(DateFormat.getDateInstance().format(date.getTime()), result);
+            ParsedResult.maybeAppend(DateFormat.getDateInstance().format(date.getTime()),result);
         } else {
             // The when string can be local time, or UTC if it ends with a Z
             Date date;
             synchronized (DATE_TIME_FORMAT) {
-                date = DATE_TIME_FORMAT.parse(when.substring(0, 15), new ParsePosition(0));
+                date = DATE_TIME_FORMAT.parse(when.substring(0, 15),
+                        new ParsePosition(0));
             }
             long milliseconds = date.getTime();
             if (when.length() == 16 && when.charAt(15) == 'Z') {
                 Calendar calendar = new GregorianCalendar();
-                int offset = calendar.get(Calendar.ZONE_OFFSET) + calendar.get(Calendar.DST_OFFSET);
+                int offset = calendar.get(Calendar.ZONE_OFFSET)
+                        + calendar.get(Calendar.DST_OFFSET);
                 milliseconds += offset;
             }
-            ParsedResult.maybeAppend(DateFormat.getDateTimeInstance().format(milliseconds), result);
+            ParsedResult.maybeAppend(DateFormat.getDateTimeInstance().format(milliseconds),result);
         }
     }
 

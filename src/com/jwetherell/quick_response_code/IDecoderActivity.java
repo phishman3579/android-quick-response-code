@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 
 import com.jwetherell.quick_response_code.camera.CameraManager;
-import com.jwetherell.quick_response_code.core.Result;
+import com.google.zxing.Result;
 
 
 public interface IDecoderActivity {

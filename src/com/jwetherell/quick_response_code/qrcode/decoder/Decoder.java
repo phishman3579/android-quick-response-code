@@ -18,14 +18,14 @@ package com.jwetherell.quick_response_code.qrcode.decoder;
 
 import java.util.Map;
 
-import com.jwetherell.quick_response_code.core.ChecksumException;
-import com.jwetherell.quick_response_code.core.DecodeHintType;
-import com.jwetherell.quick_response_code.core.FormatException;
-import com.jwetherell.quick_response_code.core.common.BitMatrix;
-import com.jwetherell.quick_response_code.core.common.DecoderResult;
-import com.jwetherell.quick_response_code.core.common.reedsolomon.GenericGF;
-import com.jwetherell.quick_response_code.core.common.reedsolomon.ReedSolomonDecoder;
-import com.jwetherell.quick_response_code.core.common.reedsolomon.ReedSolomonException;
+import com.google.zxing.ChecksumException;
+import com.google.zxing.DecodeHintType;
+import com.google.zxing.FormatException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.common.DecoderResult;
+import com.google.zxing.common.reedsolomon.GenericGF;
+import com.google.zxing.common.reedsolomon.ReedSolomonDecoder;
+import com.google.zxing.common.reedsolomon.ReedSolomonException;
 
 
 /**
