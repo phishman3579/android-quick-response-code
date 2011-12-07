@@ -151,8 +151,7 @@
                     android:textColor="@color/result_text"
                     android:textColorLink="@color/result_text"
                     android:textSize="22sp"
-                    android:paddingLeft="12dip"
-                    android:autoLink="web"/>
+                    android:paddingLeft="12dip"/>
         </LinearLayout>
       </ScrollView>
 
