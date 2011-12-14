@@ -31,7 +31,7 @@ import com.jwetherell.quick_response_code.qrcode.QRCodeEncoder;
 
 
 /**
- * Example Encoder Activity
+ * Example Encoder Activity.
  * 
  * @author Justin Wetherell (phishman3579@gmail.com)
  */
