@@ -51,4 +51,6 @@
   <string name="wifi_ssid_label">Network Name</string>
   <string name="wifi_type_label">Type</string>
 
+  <string name="barcode_image">Barcode Image</string>
+  
 </resources>
