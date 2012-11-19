@@ -41,10 +41,8 @@ import java.util.Locale;
  */
 public final class AddressBookResultHandler extends ResultHandler {
 
-    private static final DateFormat[] DATE_FORMATS = {
-            new SimpleDateFormat("yyyyMMdd", Locale.ENGLISH),
-            new SimpleDateFormat("yyyyMMdd'T'HHmmss", Locale.ENGLISH),
-            new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH),
+    private static final DateFormat[] DATE_FORMATS = { new SimpleDateFormat("yyyyMMdd", Locale.ENGLISH),
+            new SimpleDateFormat("yyyyMMdd'T'HHmmss", Locale.ENGLISH), new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH),
             new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH), };
 
     private final boolean[] fields;
@@ -66,7 +64,8 @@ public final class AddressBookResultHandler extends ResultHandler {
         fields[3] = hasEmailAddress;
     }
 
-    // Overriden so we can hyphenate phone numbers, format birthdays, and bold the name.
+    // Overriden so we can hyphenate phone numbers, format birthdays, and bold
+    // the name.
     @Override
     public CharSequence getDisplayContents() {
         AddressBookParsedResult result = (AddressBookParsedResult) getResult();
@@ -87,7 +86,7 @@ public final class AddressBookResultHandler extends ResultHandler {
         String[] numbers = result.getPhoneNumbers();
         if (numbers != null) {
             for (String number : numbers) {
-                ParsedResult.maybeAppend(PhoneNumberUtils.formatNumber(number),contents);
+                ParsedResult.maybeAppend(PhoneNumberUtils.formatNumber(number), contents);
             }
         }
         ParsedResult.maybeAppend(result.getEmails(), contents);
@@ -97,7 +96,7 @@ public final class AddressBookResultHandler extends ResultHandler {
         if (birthday != null && birthday.length() > 0) {
             Date date = parseDate(birthday);
             if (date != null) {
-                ParsedResult.maybeAppend(DateFormat.getDateInstance().format(date.getTime()),contents);
+                ParsedResult.maybeAppend(DateFormat.getDateInstance().format(date.getTime()), contents);
             }
         }
         ParsedResult.maybeAppend(result.getNote(), contents);
@@ -105,8 +104,7 @@ public final class AddressBookResultHandler extends ResultHandler {
         if (namesLength > 0) {
             // Bold the full name to make it stand out a bit.
             Spannable styled = new SpannableString(contents.toString());
-            styled.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0,
-                    namesLength, 0);
+            styled.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, namesLength, 0);
             return styled;
         } else {
             return contents.toString();

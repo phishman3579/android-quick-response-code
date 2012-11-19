@@ -80,22 +80,20 @@ public final class CalendarResultHandler extends ResultHandler {
             if (end && !sameStartEnd) {
                 date = new Date(date.getTime() - 24 * 60 * 60 * 1000);
             }
-            ParsedResult.maybeAppend(DateFormat.getDateInstance().format(date.getTime()),result);
+            ParsedResult.maybeAppend(DateFormat.getDateInstance().format(date.getTime()), result);
         } else {
             // The when string can be local time, or UTC if it ends with a Z
             Date date;
             synchronized (DATE_TIME_FORMAT) {
-                date = DATE_TIME_FORMAT.parse(when.substring(0, 15),
-                        new ParsePosition(0));
+                date = DATE_TIME_FORMAT.parse(when.substring(0, 15), new ParsePosition(0));
             }
             long milliseconds = date.getTime();
             if (when.length() == 16 && when.charAt(15) == 'Z') {
                 Calendar calendar = new GregorianCalendar();
-                int offset = calendar.get(Calendar.ZONE_OFFSET)
-                        + calendar.get(Calendar.DST_OFFSET);
+                int offset = calendar.get(Calendar.ZONE_OFFSET) + calendar.get(Calendar.DST_OFFSET);
                 milliseconds += offset;
             }
-            ParsedResult.maybeAppend(DateFormat.getDateTimeInstance().format(milliseconds),result);
+            ParsedResult.maybeAppend(DateFormat.getDateTimeInstance().format(milliseconds), result);
         }
     }
 

@@ -45,7 +45,7 @@ public final class ISBNResultHandler extends ResultHandler {
         contents.trimToSize();
         return contents.toString();
     }
-    
+
     @Override
     public int getDisplayTitle() {
         return R.string.result_isbn;

@@ -26,8 +26,9 @@ import com.google.zxing.common.BitMatrix;
 
 /**
  * <p>
- * This class attempts to find alignment patterns in a QR Code. Alignment patterns look like finder
- * patterns but are smaller and appear at regular intervals throughout the image.
+ * This class attempts to find alignment patterns in a QR Code. Alignment
+ * patterns look like finder patterns but are smaller and appear at regular
+ * intervals throughout the image.
  * </p>
  * 
  * <p>
@@ -35,12 +36,14 @@ import com.google.zxing.common.BitMatrix;
  * </p>
  * 
  * <p>
- * This is mostly a simplified copy of {@link FinderPatternFinder}. It is copied, pasted and
- * stripped down here for maximum performance but does unfortunately duplicate some code.
+ * This is mostly a simplified copy of {@link FinderPatternFinder}. It is
+ * copied, pasted and stripped down here for maximum performance but does
+ * unfortunately duplicate some code.
  * </p>
  * 
  * <p>
- * This class is thread-safe but not reentrant. Each thread must allocate its own object.
+ * This class is thread-safe but not reentrant. Each thread must allocate its
+ * own object.
  * </p>
  * 
  * @author Sean Owen
@@ -62,15 +65,20 @@ final class AlignmentPatternFinder {
      * Creates a finder that will look in a portion of the whole image.
      * </p>
      * 
-     * @param image image to search
-     * @param startX left column from which to start searching
-     * @param startY top row from which to start searching
-     * @param width width of region to search
-     * @param height height of region to search
-     * @param moduleSize estimated module size so far
+     * @param image
+     *            image to search
+     * @param startX
+     *            left column from which to start searching
+     * @param startY
+     *            top row from which to start searching
+     * @param width
+     *            width of region to search
+     * @param height
+     *            height of region to search
+     * @param moduleSize
+     *            estimated module size so far
      */
-    AlignmentPatternFinder(BitMatrix image, int startX, int startY, int width, int height,
-            float moduleSize, ResultPointCallback resultPointCallback) {
+    AlignmentPatternFinder(BitMatrix image, int startX, int startY, int width, int height, float moduleSize, ResultPointCallback resultPointCallback) {
         this.image = image;
         this.possibleCenters = new ArrayList<AlignmentPattern>(5);
         this.startX = startX;
@@ -84,12 +92,14 @@ final class AlignmentPatternFinder {
 
     /**
      * <p>
-     * This method attempts to find the bottom-right alignment pattern in the image. It is a bit
-     * messy since it's pretty performance-critical and so is written to be fast foremost.
+     * This method attempts to find the bottom-right alignment pattern in the
+     * image. It is a bit messy since it's pretty performance-critical and so is
+     * written to be fast foremost.
      * </p>
      * 
      * @return {@link AlignmentPattern} if found
-     * @throws NotFoundException if not found
+     * @throws NotFoundException
+     *             if not found
      */
     AlignmentPattern find() throws NotFoundException {
         int startX = this.startX;
@@ -106,8 +116,10 @@ final class AlignmentPatternFinder {
             stateCount[1] = 0;
             stateCount[2] = 0;
             int j = startX;
-            // Burn off leading white pixels before anything else; if we start in the middle of
-            // a white run, it doesn't make sense to count its length, since we don't know if the
+            // Burn off leading white pixels before anything else; if we start
+            // in the middle of
+            // a white run, it doesn't make sense to count its length, since we
+            // don't know if the
             // white run continued to the left of the start point
             while (j < maxJ && !image.get(j, i)) {
                 j++;
@@ -122,7 +134,9 @@ final class AlignmentPatternFinder {
                         if (currentState == 2) { // A winner?
                             if (foundPatternCross(stateCount)) { // Yes
                                 AlignmentPattern confirmed = handlePossibleCenter(stateCount, i, j);
-                                if (confirmed != null) { return confirmed; }
+                                if (confirmed != null) {
+                                    return confirmed;
+                                }
                             }
                             stateCount[0] = stateCount[2];
                             stateCount[1] = 1;
@@ -142,14 +156,18 @@ final class AlignmentPatternFinder {
             }
             if (foundPatternCross(stateCount)) {
                 AlignmentPattern confirmed = handlePossibleCenter(stateCount, i, maxJ);
-                if (confirmed != null) { return confirmed; }
+                if (confirmed != null) {
+                    return confirmed;
+                }
             }
 
         }
 
         // Hmm, nothing we saw was observed and confirmed twice. If we had
         // any guess at all, return it.
-        if (!possibleCenters.isEmpty()) { return possibleCenters.get(0); }
+        if (!possibleCenters.isEmpty()) {
+            return possibleCenters.get(0);
+        }
 
         throw NotFoundException.getNotFoundInstance();
     }
@@ -163,34 +181,42 @@ final class AlignmentPatternFinder {
     }
 
     /**
-     * @param stateCount count of black/white/black pixels just read
-     * @return true iff the proportions of the counts is close enough to the 1/1/1 ratios
-     *         used by alignment patterns to be considered a match
+     * @param stateCount
+     *            count of black/white/black pixels just read
+     * @return true iff the proportions of the counts is close enough to the
+     *         1/1/1 ratios used by alignment patterns to be considered a match
      */
     private boolean foundPatternCross(int[] stateCount) {
         float moduleSize = this.moduleSize;
         float maxVariance = moduleSize / 2.0f;
         for (int i = 0; i < 3; i++) {
-            if (Math.abs(moduleSize - stateCount[i]) >= maxVariance) { return false; }
+            if (Math.abs(moduleSize - stateCount[i]) >= maxVariance) {
+                return false;
+            }
         }
         return true;
     }
 
     /**
      * <p>
-     * After a horizontal scan finds a potential alignment pattern, this method "cross-checks" by
-     * scanning down vertically through the center of the possible alignment pattern to see if the
-     * same proportion is detected.
+     * After a horizontal scan finds a potential alignment pattern, this method
+     * "cross-checks" by scanning down vertically through the center of the
+     * possible alignment pattern to see if the same proportion is detected.
      * </p>
      * 
-     * @param startI row where an alignment pattern was detected
-     * @param centerJ center of the section that appears to cross an alignment pattern
-     * @param maxCount maximum reasonable number of modules that should be
-     *            observed in any reading state, based on the results of the horizontal scan
-     * @return vertical center of alignment pattern, or {@link Float#NaN} if not found
+     * @param startI
+     *            row where an alignment pattern was detected
+     * @param centerJ
+     *            center of the section that appears to cross an alignment
+     *            pattern
+     * @param maxCount
+     *            maximum reasonable number of modules that should be observed
+     *            in any reading state, based on the results of the horizontal
+     *            scan
+     * @return vertical center of alignment pattern, or {@link Float#NaN} if not
+     *         found
      */
-    private float crossCheckVertical(int startI, int centerJ, int maxCount,
-            int originalStateCountTotal) {
+    private float crossCheckVertical(int startI, int centerJ, int maxCount, int originalStateCountTotal) {
         BitMatrix image = this.image;
 
         int maxI = image.getHeight();
@@ -206,12 +232,16 @@ final class AlignmentPatternFinder {
             i--;
         }
         // If already too many modules in this state or ran off the edge:
-        if (i < 0 || stateCount[1] > maxCount) { return Float.NaN; }
+        if (i < 0 || stateCount[1] > maxCount) {
+            return Float.NaN;
+        }
         while (i >= 0 && !image.get(centerJ, i) && stateCount[0] <= maxCount) {
             stateCount[0]++;
             i--;
         }
-        if (stateCount[0] > maxCount) { return Float.NaN; }
+        if (stateCount[0] > maxCount) {
+            return Float.NaN;
+        }
 
         // Now also count down from center
         i = startI + 1;
@@ -219,31 +249,41 @@ final class AlignmentPatternFinder {
             stateCount[1]++;
             i++;
         }
-        if (i == maxI || stateCount[1] > maxCount) { return Float.NaN; }
+        if (i == maxI || stateCount[1] > maxCount) {
+            return Float.NaN;
+        }
         while (i < maxI && !image.get(centerJ, i) && stateCount[2] <= maxCount) {
             stateCount[2]++;
             i++;
         }
-        if (stateCount[2] > maxCount) { return Float.NaN; }
+        if (stateCount[2] > maxCount) {
+            return Float.NaN;
+        }
 
         int stateCountTotal = stateCount[0] + stateCount[1] + stateCount[2];
-        if (5 * Math.abs(stateCountTotal - originalStateCountTotal) >= 2 * originalStateCountTotal) { return Float.NaN; }
+        if (5 * Math.abs(stateCountTotal - originalStateCountTotal) >= 2 * originalStateCountTotal) {
+            return Float.NaN;
+        }
 
         return foundPatternCross(stateCount) ? centerFromEnd(stateCount, i) : Float.NaN;
     }
 
     /**
      * <p>
-     * This is called when a horizontal scan finds a possible alignment pattern. It will cross check
-     * with a vertical scan, and if successful, will see if this pattern had been found on a
-     * previous horizontal scan. If so, we consider it confirmed and conclude we have found the
-     * alignment pattern.
+     * This is called when a horizontal scan finds a possible alignment pattern.
+     * It will cross check with a vertical scan, and if successful, will see if
+     * this pattern had been found on a previous horizontal scan. If so, we
+     * consider it confirmed and conclude we have found the alignment pattern.
      * </p>
      * 
-     * @param stateCount reading state module counts from horizontal scan
-     * @param i row where alignment pattern may be found
-     * @param j end of possible alignment pattern in row
-     * @return {@link AlignmentPattern} if we have found the same pattern twice, or null if not
+     * @param stateCount
+     *            reading state module counts from horizontal scan
+     * @param i
+     *            row where alignment pattern may be found
+     * @param j
+     *            end of possible alignment pattern in row
+     * @return {@link AlignmentPattern} if we have found the same pattern twice,
+     *         or null if not
      */
     private AlignmentPattern handlePossibleCenter(int[] stateCount, int i, int j) {
         int stateCountTotal = stateCount[0] + stateCount[1] + stateCount[2];
@@ -253,8 +293,9 @@ final class AlignmentPatternFinder {
             float estimatedModuleSize = (float) (stateCount[0] + stateCount[1] + stateCount[2]) / 3.0f;
             for (AlignmentPattern center : possibleCenters) {
                 // Look for about the same center and module size:
-                if (center.aboutEquals(estimatedModuleSize, centerI, centerJ)) { return center
-                        .combineEstimate(centerI, centerJ, estimatedModuleSize); }
+                if (center.aboutEquals(estimatedModuleSize, centerI, centerJ)) {
+                    return center.combineEstimate(centerI, centerJ, estimatedModuleSize);
+                }
             }
             // Hadn't found this before; save it
             AlignmentPattern point = new AlignmentPattern(centerJ, centerI, estimatedModuleSize);

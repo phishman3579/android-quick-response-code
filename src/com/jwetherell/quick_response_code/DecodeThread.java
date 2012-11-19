@@ -39,6 +39,7 @@ import com.jwetherell.quick_response_code.data.Preferences;
  * @author dswitkin@google.com (Daniel Switkin)
  */
 final class DecodeThread extends Thread {
+
     private static final String TAG = DecodeThread.class.getSimpleName();
     public static final String BARCODE_BITMAP = "barcode_bitmap";
 
@@ -53,7 +54,8 @@ final class DecodeThread extends Thread {
         handlerInitLatch = new CountDownLatch(1);
         hints = new EnumMap<DecodeHintType, Object>(DecodeHintType.class);
 
-        // The prefs can't change while the thread is running, so pick them up once here.
+        // The prefs can't change while the thread is running, so pick them up
+        // once here.
         if (decodeFormats == null || decodeFormats.isEmpty()) {
             if (activity instanceof Activity) {
                 decodeFormats = EnumSet.noneOf(BarcodeFormat.class);

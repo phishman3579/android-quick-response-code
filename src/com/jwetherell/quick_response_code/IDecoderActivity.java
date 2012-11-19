@@ -8,6 +8,7 @@ import com.google.zxing.Result;
 
 
 public interface IDecoderActivity {
+
     public ViewfinderView getViewfinder();
 
     public Handler getHandler();

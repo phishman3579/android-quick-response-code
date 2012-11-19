@@ -18,9 +18,9 @@ package com.jwetherell.quick_response_code.qrcode.decoder;
 
 /**
  * <p>
- * Encapsulates a block of data within a QR Code. QR Codes may split their data into multiple
- * blocks, each of which is a unit of data and error-correction codewords. Each is represented by an
- * instance of this class.
+ * Encapsulates a block of data within a QR Code. QR Codes may split their data
+ * into multiple blocks, each of which is a unit of data and error-correction
+ * codewords. Each is represented by an instance of this class.
  * </p>
  * 
  * @author Sean Owen
@@ -37,23 +37,29 @@ final class DataBlock {
 
     /**
      * <p>
-     * When QR Codes use multiple data blocks, they are actually interleaved. That is, the first
-     * byte of data block 1 to n is written, then the second bytes, and so on. This method will
-     * separate the data into original blocks.
+     * When QR Codes use multiple data blocks, they are actually interleaved.
+     * That is, the first byte of data block 1 to n is written, then the second
+     * bytes, and so on. This method will separate the data into original
+     * blocks.
      * </p>
      * 
-     * @param rawCodewords bytes as read directly from the QR Code
-     * @param version version of the QR Code
-     * @param ecLevel error-correction level of the QR Code
-     * @return DataBlocks containing original bytes, "de-interleaved" from representation in the
-     *         QR Code
+     * @param rawCodewords
+     *            bytes as read directly from the QR Code
+     * @param version
+     *            version of the QR Code
+     * @param ecLevel
+     *            error-correction level of the QR Code
+     * @return DataBlocks containing original bytes, "de-interleaved" from
+     *         representation in the QR Code
      */
-    static DataBlock[] getDataBlocks(byte[] rawCodewords, Version version,
-            ErrorCorrectionLevel ecLevel) {
+    static DataBlock[] getDataBlocks(byte[] rawCodewords, Version version, ErrorCorrectionLevel ecLevel) {
 
-        if (rawCodewords.length != version.getTotalCodewords()) { throw new IllegalArgumentException(); }
+        if (rawCodewords.length != version.getTotalCodewords()) {
+            throw new IllegalArgumentException();
+        }
 
-        // Figure out the number and size of data blocks used by this version and
+        // Figure out the number and size of data blocks used by this version
+        // and
         // error correction level
         Version.ECBlocks ecBlocks = version.getECBlocksForLevel(ecLevel);
 
@@ -64,15 +70,15 @@ final class DataBlock {
             totalBlocks += ecBlock.getCount();
         }
 
-        // Now establish DataBlocks of the appropriate size and number of data codewords
+        // Now establish DataBlocks of the appropriate size and number of data
+        // codewords
         DataBlock[] result = new DataBlock[totalBlocks];
         int numResultBlocks = 0;
         for (Version.ECB ecBlock : ecBlockArray) {
             for (int i = 0; i < ecBlock.getCount(); i++) {
                 int numDataCodewords = ecBlock.getDataCodewords();
                 int numBlockCodewords = ecBlocks.getECCodewordsPerBlock() + numDataCodewords;
-                result[numResultBlocks++] = new DataBlock(numDataCodewords,
-                        new byte[numBlockCodewords]);
+                result[numResultBlocks++] = new DataBlock(numDataCodewords, new byte[numBlockCodewords]);
             }
         }
 
@@ -89,8 +95,7 @@ final class DataBlock {
         }
         longerBlocksStartAt++;
 
-        int shorterBlocksNumDataCodewords = shorterBlocksTotalCodewords
-                - ecBlocks.getECCodewordsPerBlock();
+        int shorterBlocksNumDataCodewords = shorterBlocksTotalCodewords - ecBlocks.getECCodewordsPerBlock();
         // The last elements of result may be 1 element longer;
         // first fill out as many elements as all of them have
         int rawCodewordsOffset = 0;

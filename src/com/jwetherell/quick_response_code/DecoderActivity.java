@@ -45,6 +45,7 @@ import android.view.WindowManager;
  * @author Justin Wetherell (phishman3579@gmail.com)
  */
 public class DecoderActivity extends Activity implements IDecoderActivity, SurfaceHolder.Callback {
+
     private static final String TAG = DecoderActivity.class.getSimpleName();
 
     protected DecoderActivityHandler handler = null;
@@ -59,10 +60,10 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
         super.onCreate(icicle);
         setContentView(R.layout.decoder);
         Log.v(TAG, "onCreate()");
-        
+
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
- 
+
         handler = null;
         hasSurface = false;
     }
@@ -79,23 +80,25 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
         Log.v(TAG, "onResume()");
 
         // CameraManager must be initialized here, not in onCreate().
-        if (cameraManager==null) cameraManager = new CameraManager(getApplication());
+        if (cameraManager == null) cameraManager = new CameraManager(getApplication());
 
-        if (viewfinderView==null) {
+        if (viewfinderView == null) {
             viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
             viewfinderView.setCameraManager(cameraManager);
         }
-        
+
         showScanner();
-        
+
         SurfaceView surfaceView = (SurfaceView) findViewById(R.id.preview_view);
         SurfaceHolder surfaceHolder = surfaceView.getHolder();
         if (hasSurface) {
-            // The activity was paused but not stopped, so the surface still exists. Therefore
+            // The activity was paused but not stopped, so the surface still
+            // exists. Therefore
             // surfaceCreated() won't be called, so init the camera here.
             initCamera(surfaceHolder);
         } else {
-            // Install the callback and wait for surfaceCreated() to init the camera.
+            // Install the callback and wait for surfaceCreated() to init the
+            // camera.
             surfaceHolder.addCallback(this);
             surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         }
@@ -105,14 +108,14 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
     protected void onPause() {
         super.onPause();
         Log.v(TAG, "onPause()");
-        
+
         if (handler != null) {
             handler.quitSynchronously();
             handler = null;
         }
 
         cameraManager.closeDriver();
-        
+
         if (!hasSurface) {
             SurfaceView surfaceView = (SurfaceView) findViewById(R.id.preview_view);
             SurfaceHolder surfaceHolder = surfaceView.getHolder();
@@ -183,11 +186,9 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
             if (points.length == 2) {
                 paint.setStrokeWidth(4.0f);
                 drawLine(canvas, paint, points[0], points[1]);
-            } else if (points.length == 4 && 
-                          ( rawResult.getBarcodeFormat() == BarcodeFormat.UPC_A || 
-                            rawResult.getBarcodeFormat() == BarcodeFormat.EAN_13) ) 
-            {
-                // Hacky special case -- draw two lines, for the barcode and metadata
+            } else if (points.length == 4 && (rawResult.getBarcodeFormat() == BarcodeFormat.UPC_A || rawResult.getBarcodeFormat() == BarcodeFormat.EAN_13)) {
+                // Hacky special case -- draw two lines, for the barcode and
+                // metadata
                 drawLine(canvas, paint, points[0], points[1]);
                 drawLine(canvas, paint, points[2], points[3]);
             } else {
@@ -210,7 +211,8 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
     protected void initCamera(SurfaceHolder surfaceHolder) {
         try {
             cameraManager.openDriver(surfaceHolder);
-            // Creating the handler starts the preview, which can also throw a RuntimeException.
+            // Creating the handler starts the preview, which can also throw a
+            // RuntimeException.
             if (handler == null) handler = new DecoderActivityHandler(this, decodeFormats, characterSet, cameraManager);
         } catch (IOException ioe) {
             Log.w(TAG, ioe);

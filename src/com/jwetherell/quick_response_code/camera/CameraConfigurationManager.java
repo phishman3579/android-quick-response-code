@@ -31,8 +31,8 @@ import com.jwetherell.quick_response_code.data.Preferences;
 
 
 /**
- * A class which deals with reading, parsing, and setting the camera parameters which are used to
- * configure the camera hardware.
+ * A class which deals with reading, parsing, and setting the camera parameters
+ * which are used to configure the camera hardware.
  */
 public final class CameraConfigurationManager {
 
@@ -57,8 +57,10 @@ public final class CameraConfigurationManager {
         Display display = manager.getDefaultDisplay();
         int width = display.getWidth();
         int height = display.getHeight();
-        // We're landscape-only, and have apparently seen issues with display thinking it's portrait
-        // when waking from sleep. If it's not landscape, assume it's mistaken and reverse them:
+        // We're landscape-only, and have apparently seen issues with display
+        // thinking it's portrait
+        // when waking from sleep. If it's not landscape, assume it's mistaken
+        // and reverse them:
         if (width < height) {
             Log.i(TAG, "Display reports portrait orientation; assuming this is incorrect");
             int temp = width;
@@ -75,16 +77,14 @@ public final class CameraConfigurationManager {
         Camera.Parameters parameters = camera.getParameters();
 
         if (parameters == null) {
-            Log.w(TAG,
-                    "Device error: no camera parameters are available. Proceeding without configuration.");
+            Log.w(TAG, "Device error: no camera parameters are available. Proceeding without configuration.");
             return;
         }
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
         initializeTorch(parameters, prefs);
-        String focusMode = findSettableValue(parameters.getSupportedFocusModes(),
-                Camera.Parameters.FOCUS_MODE_AUTO, Camera.Parameters.FOCUS_MODE_MACRO);
+        String focusMode = findSettableValue(parameters.getSupportedFocusModes(), Camera.Parameters.FOCUS_MODE_AUTO, Camera.Parameters.FOCUS_MODE_MACRO);
         if (focusMode != null) {
             parameters.setFocusMode(focusMode);
         }
@@ -114,19 +114,16 @@ public final class CameraConfigurationManager {
     private static void doSetTorch(Camera.Parameters parameters, boolean newSetting) {
         String flashMode;
         if (newSetting) {
-            flashMode = findSettableValue(parameters.getSupportedFlashModes(),
-                    Camera.Parameters.FLASH_MODE_TORCH, Camera.Parameters.FLASH_MODE_ON);
+            flashMode = findSettableValue(parameters.getSupportedFlashModes(), Camera.Parameters.FLASH_MODE_TORCH, Camera.Parameters.FLASH_MODE_ON);
         } else {
-            flashMode = findSettableValue(parameters.getSupportedFlashModes(),
-                    Camera.Parameters.FLASH_MODE_OFF);
+            flashMode = findSettableValue(parameters.getSupportedFlashModes(), Camera.Parameters.FLASH_MODE_OFF);
         }
         if (flashMode != null) {
             parameters.setFlashMode(flashMode);
         }
     }
 
-    private static Point findBestPreviewSizeValue(Camera.Parameters parameters,
-            Point screenResolution, boolean portrait) {
+    private static Point findBestPreviewSizeValue(Camera.Parameters parameters, Point screenResolution, boolean portrait) {
         Point bestSize = null;
         int diff = Integer.MAX_VALUE;
         for (Camera.Size supportedPreviewSize : parameters.getSupportedPreviewSizes()) {
@@ -134,12 +131,9 @@ public final class CameraConfigurationManager {
             if (pixels < MIN_PREVIEW_PIXELS || pixels > MAX_PREVIEW_PIXELS) {
                 continue;
             }
-            int supportedWidth = portrait ? supportedPreviewSize.height
-                    : supportedPreviewSize.width;
-            int supportedHeight = portrait ? supportedPreviewSize.width
-                    : supportedPreviewSize.height;
-            int newDiff = Math.abs(screenResolution.x * supportedHeight - supportedWidth
-                    * screenResolution.y);
+            int supportedWidth = portrait ? supportedPreviewSize.height : supportedPreviewSize.width;
+            int supportedHeight = portrait ? supportedPreviewSize.width : supportedPreviewSize.height;
+            int newDiff = Math.abs(screenResolution.x * supportedHeight - supportedWidth * screenResolution.y);
             if (newDiff == 0) {
                 bestSize = new Point(supportedWidth, supportedHeight);
                 break;
@@ -156,8 +150,7 @@ public final class CameraConfigurationManager {
         return bestSize;
     }
 
-    private static String findSettableValue(Collection<String> supportedValues,
-            String... desiredValues) {
+    private static String findSettableValue(Collection<String> supportedValues, String... desiredValues) {
         Log.i(TAG, "Supported values: " + supportedValues);
         String result = null;
         if (supportedValues != null) {

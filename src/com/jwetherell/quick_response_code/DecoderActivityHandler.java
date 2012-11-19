@@ -33,17 +33,20 @@ import com.google.zxing.Result;
 
 
 /**
- * This class handles all the messaging which comprises the state machine for capture.
+ * This class handles all the messaging which comprises the state machine for
+ * capture.
  * 
  * @author dswitkin@google.com (Daniel Switkin)
  */
 public final class DecoderActivityHandler extends Handler {
+
     private static final String TAG = DecoderActivityHandler.class.getSimpleName();
 
     private final IDecoderActivity activity;
     private final DecodeThread decodeThread;
     private final CameraManager cameraManager;
     private State state;
+
     private enum State {
         PREVIEW, SUCCESS, DONE
     }
@@ -65,8 +68,10 @@ public final class DecoderActivityHandler extends Handler {
         switch (message.what) {
             case R.id.auto_focus:
                 // Log.d(TAG, "Got auto-focus message");
-                // When one auto focus pass finishes, start another. This is the closest thing to
-                // continuous AF. It does seem to hunt a bit, but I'm not sure what else to do.
+                // When one auto focus pass finishes, start another. This is the
+                // closest thing to
+                // continuous AF. It does seem to hunt a bit, but I'm not sure
+                // what else to do.
                 if (state == State.PREVIEW) cameraManager.requestAutoFocus(this, R.id.auto_focus);
                 break;
             case R.id.restart_preview:
@@ -81,7 +86,8 @@ public final class DecoderActivityHandler extends Handler {
                 activity.handleDecode((Result) message.obj, barcode);
                 break;
             case R.id.decode_failed:
-                // We're decoding as fast as possible, so when one decode fails, start another.
+                // We're decoding as fast as possible, so when one decode fails,
+                // start another.
                 state = State.PREVIEW;
                 cameraManager.requestPreviewFrame(decodeThread.getHandler(), R.id.decode);
                 break;
@@ -103,7 +109,8 @@ public final class DecoderActivityHandler extends Handler {
         Message quit = Message.obtain(decodeThread.getHandler(), R.id.quit);
         quit.sendToTarget();
         try {
-            // Wait at most half a second; should be enough time, and onPause() will timeout quickly
+            // Wait at most half a second; should be enough time, and onPause()
+            // will timeout quickly
             decodeThread.join(500L);
         } catch (InterruptedException e) {
             // continue

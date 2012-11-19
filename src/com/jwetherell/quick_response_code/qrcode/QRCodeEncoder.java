@@ -36,13 +36,14 @@ import com.google.zxing.common.BitMatrix;
 
 
 /**
- * This class does the work of decoding the user's request and extracting all the data
- * to be encoded in a barcode.
+ * This class does the work of decoding the user's request and extracting all
+ * the data to be encoded in a barcode.
  * 
  * @author Justin Wetherell (phishman3579@gmail.com )
  * @author dswitkin@google.com (Daniel Switkin)
  */
 public final class QRCodeEncoder {
+
     private static final int WHITE = 0xFFFFFFFF;
     private static final int BLACK = 0xFF000000;
 
@@ -164,7 +165,8 @@ public final class QRCodeEncoder {
 
                 String url = trim(bundle.getString(Contents.URL_KEY));
                 if (url != null) {
-                    // escapeMECARD(url) -> wrong escape e.g. http\://zxing.google.com
+                    // escapeMECARD(url) -> wrong escape e.g.
+                    // http\://zxing.google.com
                     newContents.append("URL:").append(url).append(';');
                     newDisplayContents.append('\n').append(url);
                 }
@@ -189,7 +191,8 @@ public final class QRCodeEncoder {
             }
         } else if (type.equals(Contents.Type.LOCATION)) {
             if (bundle != null) {
-                // These must use Bundle.getFloat(), not getDouble(), it's part of the API.
+                // These must use Bundle.getFloat(), not getDouble(), it's part
+                // of the API.
                 float latitude = bundle.getFloat("LAT", Float.MAX_VALUE);
                 float longitude = bundle.getFloat("LONG", Float.MAX_VALUE);
                 if (latitude != Float.MAX_VALUE && longitude != Float.MAX_VALUE) {
@@ -231,19 +234,25 @@ public final class QRCodeEncoder {
     private static String guessAppropriateEncoding(CharSequence contents) {
         // Very crude at the moment
         for (int i = 0; i < contents.length(); i++) {
-            if (contents.charAt(i) > 0xFF) { return "UTF-8"; }
+            if (contents.charAt(i) > 0xFF) {
+                return "UTF-8";
+            }
         }
         return null;
     }
 
     private static String trim(String s) {
-        if (s == null) { return null; }
+        if (s == null) {
+            return null;
+        }
         String result = s.trim();
         return result.length() == 0 ? null : result;
     }
 
     private static String escapeMECARD(String input) {
-        if (input == null || (input.indexOf(':') < 0 && input.indexOf(';') < 0)) { return input; }
+        if (input == null || (input.indexOf(':') < 0 && input.indexOf(';') < 0)) {
+            return input;
+        }
         int length = input.length();
         StringBuilder result = new StringBuilder(length);
         for (int i = 0; i < length; i++) {

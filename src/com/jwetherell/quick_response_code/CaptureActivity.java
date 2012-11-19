@@ -43,12 +43,10 @@ import android.widget.TextView;
  * @author Justin Wetherell (phishman3579@gmail.com)
  */
 public class CaptureActivity extends DecoderActivity {
+
     private static final String TAG = CaptureActivity.class.getSimpleName();
-    private static final Set<ResultMetadataType> DISPLAYABLE_METADATA_TYPES =
-        EnumSet.of(ResultMetadataType.ISSUE_NUMBER,
-                   ResultMetadataType.SUGGESTED_PRICE,
-                   ResultMetadataType.ERROR_CORRECTION_LEVEL,
-                   ResultMetadataType.POSSIBLE_COUNTRY);
+    private static final Set<ResultMetadataType> DISPLAYABLE_METADATA_TYPES = EnumSet.of(ResultMetadataType.ISSUE_NUMBER, ResultMetadataType.SUGGESTED_PRICE,
+            ResultMetadataType.ERROR_CORRECTION_LEVEL, ResultMetadataType.POSSIBLE_COUNTRY);
 
     private TextView statusView = null;
     private View resultView = null;
@@ -62,7 +60,7 @@ public class CaptureActivity extends DecoderActivity {
 
         resultView = findViewById(R.id.result_view);
         statusView = (TextView) findViewById(R.id.status_view);
-        
+
         inScanMode = false;
     }
 
@@ -97,7 +95,7 @@ public class CaptureActivity extends DecoderActivity {
     @Override
     public void handleDecode(Result rawResult, Bitmap barcode) {
         drawResultPoints(barcode, rawResult);
-        
+
         ResultHandler resultHandler = ResultHandlerFactory.makeResultHandler(this, rawResult);
         handleDecodeInternally(rawResult, resultHandler, barcode);
     }
@@ -116,7 +114,7 @@ public class CaptureActivity extends DecoderActivity {
         viewfinderView.setVisibility(View.GONE);
         resultView.setVisibility(View.VISIBLE);
     }
-    
+
     // Put up our own UI for how to handle the decodBarcodeFormated contents.
     private void handleDecodeInternally(Result rawResult, ResultHandler resultHandler, Bitmap barcode) {
         onPause();
@@ -144,10 +142,10 @@ public class CaptureActivity extends DecoderActivity {
         View metaTextViewLabel = findViewById(R.id.meta_text_view_label);
         metaTextView.setVisibility(View.GONE);
         metaTextViewLabel.setVisibility(View.GONE);
-        Map<ResultMetadataType,Object> metadata = rawResult.getResultMetadata();
+        Map<ResultMetadataType, Object> metadata = rawResult.getResultMetadata();
         if (metadata != null) {
             StringBuilder metadataText = new StringBuilder(20);
-            for (Map.Entry<ResultMetadataType,Object> entry : metadata.entrySet()) {
+            for (Map.Entry<ResultMetadataType, Object> entry : metadata.entrySet()) {
                 if (DISPLAYABLE_METADATA_TYPES.contains(entry.getKey())) {
                     metadataText.append(entry.getValue()).append('\n');
                 }

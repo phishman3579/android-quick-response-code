@@ -26,15 +26,16 @@ final class MaskUtil {
         // do nothing
     }
 
-    // Apply mask penalty rule 1 and return the penalty. Find repetitive cells with the same color
+    // Apply mask penalty rule 1 and return the penalty. Find repetitive cells
+    // with the same color
     // and
     // give penalty to them. Example: 00000 or 11111.
     static int applyMaskPenaltyRule1(ByteMatrix matrix) {
-        return applyMaskPenaltyRule1Internal(matrix, true)
-                + applyMaskPenaltyRule1Internal(matrix, false);
+        return applyMaskPenaltyRule1Internal(matrix, true) + applyMaskPenaltyRule1Internal(matrix, false);
     }
 
-    // Apply mask penalty rule 2 and return the penalty. Find 2x2 blocks with the same color and
+    // Apply mask penalty rule 2 and return the penalty. Find 2x2 blocks with
+    // the same color and
     // give
     // penalty to them.
     static int applyMaskPenaltyRule2(ByteMatrix matrix) {
@@ -45,8 +46,7 @@ final class MaskUtil {
         for (int y = 0; y < height - 1; ++y) {
             for (int x = 0; x < width - 1; ++x) {
                 int value = array[y][x];
-                if (value == array[y][x + 1] && value == array[y + 1][x]
-                        && value == array[y + 1][x + 1]) {
+                if (value == array[y][x + 1] && value == array[y + 1][x] && value == array[y + 1][x + 1]) {
                     penalty += 3;
                 }
             }
@@ -54,8 +54,10 @@ final class MaskUtil {
         return penalty;
     }
 
-    // Apply mask penalty rule 3 and return the penalty. Find consecutive cells of 00001011101 or
-    // 10111010000, and give penalty to them. If we find patterns like 000010111010000, we give
+    // Apply mask penalty rule 3 and return the penalty. Find consecutive cells
+    // of 00001011101 or
+    // 10111010000, and give penalty to them. If we find patterns like
+    // 000010111010000, we give
     // penalties twice (i.e. 40 * 2).
     static int applyMaskPenaltyRule3(ByteMatrix matrix) {
         int penalty = 0;
@@ -73,10 +75,8 @@ final class MaskUtil {
                         && array[y][x + 4] == 1
                         && array[y][x + 5] == 0
                         && array[y][x + 6] == 1
-                        && ((x + 10 < width && array[y][x + 7] == 0 && array[y][x + 8] == 0
-                                && array[y][x + 9] == 0 && array[y][x + 10] == 0) || (x - 4 >= 0
-                                && array[y][x - 1] == 0 && array[y][x - 2] == 0
-                                && array[y][x - 3] == 0 && array[y][x - 4] == 0))) {
+                        && ((x + 10 < width && array[y][x + 7] == 0 && array[y][x + 8] == 0 && array[y][x + 9] == 0 && array[y][x + 10] == 0) || (x - 4 >= 0
+                                && array[y][x - 1] == 0 && array[y][x - 2] == 0 && array[y][x - 3] == 0 && array[y][x - 4] == 0))) {
                     penalty += 40;
                 }
                 if (y + 6 < height
@@ -87,10 +87,8 @@ final class MaskUtil {
                         && array[y + 4][x] == 1
                         && array[y + 5][x] == 0
                         && array[y + 6][x] == 1
-                        && ((y + 10 < height && array[y + 7][x] == 0 && array[y + 8][x] == 0
-                                && array[y + 9][x] == 0 && array[y + 10][x] == 0) || (y - 4 >= 0
-                                && array[y - 1][x] == 0 && array[y - 2][x] == 0
-                                && array[y - 3][x] == 0 && array[y - 4][x] == 0))) {
+                        && ((y + 10 < height && array[y + 7][x] == 0 && array[y + 8][x] == 0 && array[y + 9][x] == 0 && array[y + 10][x] == 0) || (y - 4 >= 0
+                                && array[y - 1][x] == 0 && array[y - 2][x] == 0 && array[y - 3][x] == 0 && array[y - 4][x] == 0))) {
                     penalty += 40;
                 }
             }
@@ -98,8 +96,10 @@ final class MaskUtil {
         return penalty;
     }
 
-    // Apply mask penalty rule 4 and return the penalty. Calculate the ratio of dark cells and give
-    // penalty if the ratio is far from 50%. It gives 10 penalty for 5% distance. Examples:
+    // Apply mask penalty rule 4 and return the penalty. Calculate the ratio of
+    // dark cells and give
+    // penalty if the ratio is far from 50%. It gives 10 penalty for 5%
+    // distance. Examples:
     // - 0% => 100
     // - 40% => 20
     // - 45% => 10
@@ -124,11 +124,13 @@ final class MaskUtil {
         return Math.abs((int) (darkRatio * 100 - 50)) / 5 * 10;
     }
 
-    // Return the mask bit for "getMaskPattern" at "x" and "y". See 8.8 of JISX0510:2004 for mask
+    // Return the mask bit for "getMaskPattern" at "x" and "y". See 8.8 of
+    // JISX0510:2004 for mask
     // pattern conditions.
     static boolean getDataMaskBit(int maskPattern, int x, int y) {
-        if (!QRCode.isValidMaskPattern(maskPattern)) { throw new IllegalArgumentException(
-                "Invalid mask pattern"); }
+        if (!QRCode.isValidMaskPattern(maskPattern)) {
+            throw new IllegalArgumentException("Invalid mask pattern");
+        }
         int intermediate;
         int temp;
         switch (maskPattern) {
@@ -165,7 +167,8 @@ final class MaskUtil {
         return intermediate == 0;
     }
 
-    // Helper function for applyMaskPenaltyRule1. We need this for doing this calculation in both
+    // Helper function for applyMaskPenaltyRule1. We need this for doing this
+    // calculation in both
     // vertical and horizontal orders respectively.
     private static int applyMaskPenaltyRule1Internal(ByteMatrix matrix, boolean isHorizontal) {
         int penalty = 0;
@@ -192,7 +195,8 @@ final class MaskUtil {
                     if (numSameBitCells == 5) {
                         penalty += 3;
                     } else if (numSameBitCells > 5) {
-                        // After five repetitive cells, we'll add the penalty one
+                        // After five repetitive cells, we'll add the penalty
+                        // one
                         // by one.
                         penalty += 1;
                     }

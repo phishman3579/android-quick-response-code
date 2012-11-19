@@ -45,7 +45,7 @@ public final class ProductResultHandler extends ResultHandler {
         contents.trimToSize();
         return contents.toString();
     }
-    
+
     @Override
     public int getDisplayTitle() {
         return R.string.result_product;

@@ -35,6 +35,7 @@ import com.google.zxing.common.HybridBinarizer;
 
 
 final class DecodeHandler extends Handler {
+
     private static final String TAG = DecodeHandler.class.getSimpleName();
 
     private final IDecoderActivity activity;
@@ -49,7 +50,9 @@ final class DecodeHandler extends Handler {
 
     @Override
     public void handleMessage(Message message) {
-        if (!running) { return; }
+        if (!running) {
+            return;
+        }
         switch (message.what) {
             case R.id.decode:
                 decode((byte[]) message.obj, message.arg1, message.arg2);
@@ -62,12 +65,16 @@ final class DecodeHandler extends Handler {
     }
 
     /**
-     * Decode the data within the viewfinder rectangle, and time how long it took. For efficiency,
-     * reuse the same reader objects from one decode to the next.
+     * Decode the data within the viewfinder rectangle, and time how long it
+     * took. For efficiency, reuse the same reader objects from one decode to
+     * the next.
      * 
-     * @param data The YUV preview frame.
-     * @param width The width of the preview frame.
-     * @param height The height of the preview frame.
+     * @param data
+     *            The YUV preview frame.
+     * @param width
+     *            The width of the preview frame.
+     * @param height
+     *            The height of the preview frame.
      */
     private void decode(byte[] data, int width, int height) {
         long start = System.currentTimeMillis();

@@ -18,8 +18,8 @@ package com.jwetherell.quick_response_code.qrcode.detector;
 
 /**
  * <p>
- * Encapsulates information about finder patterns in an image, including the location of the three
- * finder patterns, and their estimated module size.
+ * Encapsulates information about finder patterns in an image, including the
+ * location of the three finder patterns, and their estimated module size.
  * </p>
  * 
  * @author Sean Owen

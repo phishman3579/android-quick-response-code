@@ -34,12 +34,14 @@ import com.google.zxing.ResultPoint;
 
 
 /**
- * This view is overlaid on top of the camera preview. It adds the viewfinder rectangle and partial
- * transparency outside it, as well as the laser scanner animation and result points.
+ * This view is overlaid on top of the camera preview. It adds the viewfinder
+ * rectangle and partial transparency outside it, as well as the laser scanner
+ * animation and result points.
  * 
  * @author dswitkin@google.com (Daniel Switkin)
  */
 public final class ViewfinderView extends View {
+
     private static final int[] SCANNER_ALPHA = { 0, 64, 128, 192, 255, 192, 128, 64 };
     private static final long ANIMATION_DELAY = 80L;
     private static final int CURRENT_POINT_OPACITY = 0xA0;
@@ -62,7 +64,8 @@ public final class ViewfinderView extends View {
     public ViewfinderView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        // Initialize these once for performance rather than calling them every time in onDraw().
+        // Initialize these once for performance rather than calling them every
+        // time in onDraw().
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         Resources resources = getResources();
         maskColor = resources.getColor(R.color.viewfinder_mask);
@@ -82,7 +85,9 @@ public final class ViewfinderView extends View {
     @Override
     public void onDraw(Canvas canvas) {
         Rect frame = cameraManager.getFramingRect();
-        if (frame == null) { return; }
+        if (frame == null) {
+            return;
+        }
         int width = canvas.getWidth();
         int height = canvas.getHeight();
 
@@ -106,7 +111,8 @@ public final class ViewfinderView extends View {
             canvas.drawRect(frame.right - 1, frame.top, frame.right + 1, frame.bottom - 1, paint);
             canvas.drawRect(frame.left, frame.bottom - 1, frame.right + 1, frame.bottom + 1, paint);
 
-            // Draw a red "laser scanner" line through the middle to show decoding is active
+            // Draw a red "laser scanner" line through the middle to show
+            // decoding is active
             paint.setColor(laserColor);
             paint.setAlpha(SCANNER_ALPHA[scannerAlpha]);
             scannerAlpha = (scannerAlpha + 1) % SCANNER_ALPHA.length;
@@ -130,8 +136,7 @@ public final class ViewfinderView extends View {
                 paint.setColor(resultPointColor);
                 synchronized (currentPossible) {
                     for (ResultPoint point : currentPossible) {
-                        canvas.drawCircle(frameLeft + (int) (point.getX() * scaleX), frameTop
-                                + (int) (point.getY() * scaleY), POINT_SIZE, paint);
+                        canvas.drawCircle(frameLeft + (int) (point.getX() * scaleX), frameTop + (int) (point.getY() * scaleY), POINT_SIZE, paint);
                     }
                 }
             }
@@ -140,16 +145,15 @@ public final class ViewfinderView extends View {
                 paint.setColor(resultPointColor);
                 synchronized (currentLast) {
                     for (ResultPoint point : currentLast) {
-                        canvas.drawCircle(frameLeft + (int) (point.getX() * scaleX), frameTop
-                                + (int) (point.getY() * scaleY), POINT_SIZE / 2, paint);
+                        canvas.drawCircle(frameLeft + (int) (point.getX() * scaleX), frameTop + (int) (point.getY() * scaleY), POINT_SIZE / 2, paint);
                     }
                 }
             }
 
-            // Request another update at the animation interval, but only repaint the laser line,
+            // Request another update at the animation interval, but only
+            // repaint the laser line,
             // not the entire viewfinder mask.
-            postInvalidateDelayed(ANIMATION_DELAY, frame.left - POINT_SIZE, frame.top - POINT_SIZE,
-                    frame.right + POINT_SIZE, frame.bottom + POINT_SIZE);
+            postInvalidateDelayed(ANIMATION_DELAY, frame.left - POINT_SIZE, frame.top - POINT_SIZE, frame.right + POINT_SIZE, frame.bottom + POINT_SIZE);
         }
     }
 
@@ -163,9 +167,11 @@ public final class ViewfinderView extends View {
     }
 
     /**
-     * Draw a bitmap with the result points highlighted instead of the live scanning display.
+     * Draw a bitmap with the result points highlighted instead of the live
+     * scanning display.
      * 
-     * @param barcode An image of the decoded barcode.
+     * @param barcode
+     *            An image of the decoded barcode.
      */
     public void drawResultBitmap(Bitmap barcode) {
         resultBitmap = barcode;

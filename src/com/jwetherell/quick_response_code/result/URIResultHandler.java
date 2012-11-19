@@ -32,6 +32,7 @@ import java.util.Locale;
  * @author dswitkin@google.com (Daniel Switkin)
  */
 public final class URIResultHandler extends ResultHandler {
+
     // URIs beginning with entries in this array will not be saved to history or
     // copied to the clipboard for security.
     private static final String[] SECURE_PROTOCOLS = { "otpauth:" };
@@ -49,7 +50,7 @@ public final class URIResultHandler extends ResultHandler {
         contents.trimToSize();
         return contents.toString();
     }
-    
+
     @Override
     public int getDisplayTitle() {
         return R.string.result_uri;

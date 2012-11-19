@@ -23,6 +23,7 @@ import com.google.zxing.client.result.ParsedResultType;
 
 import android.app.Activity;
 
+
 /**
  * A base class for the Android-specific barcode handlers. These allow the app
  * to polymorphically suggest the appropriate actions for each data type.

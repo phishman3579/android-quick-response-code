@@ -102,24 +102,28 @@ public final class QRCode {
         return matrix;
     }
 
-    // Return the value of the module (cell) pointed by "x" and "y" in the matrix of the QR Code.
+    // Return the value of the module (cell) pointed by "x" and "y" in the
+    // matrix of the QR Code.
     // They
-    // call cells in the matrix "modules". 1 represents a black cell, and 0 represents a white cell.
+    // call cells in the matrix "modules". 1 represents a black cell, and 0
+    // represents a white cell.
     public int at(int x, int y) {
         // The value must be zero or one.
         int value = matrix.get(x, y);
-        if (!(value == 0 || value == 1)) { throw new IllegalStateException("Bad value"); }
+        if (!(value == 0 || value == 1)) {
+            throw new IllegalStateException("Bad value");
+        }
         return value;
     }
 
-    // Checks all the member variables are set properly. Returns true on success. Otherwise, returns
+    // Checks all the member variables are set properly. Returns true on
+    // success. Otherwise, returns
     // false.
     public boolean isValid() {
         return
         // First check if all version are not uninitialized.
-        mode != null && ecLevel != null && version != -1 && matrixWidth != -1 && maskPattern != -1
-                && numTotalBytes != -1 && numDataBytes != -1 && numECBytes != -1
-                && numRSBlocks != -1 &&
+        mode != null && ecLevel != null && version != -1 && matrixWidth != -1 && maskPattern != -1 && numTotalBytes != -1 && numDataBytes != -1
+                && numECBytes != -1 && numRSBlocks != -1 &&
                 // Then check them in other ways..
                 isValidMaskPattern(maskPattern) && numTotalBytes == numDataBytes + numECBytes &&
                 // ByteMatrix stuff.

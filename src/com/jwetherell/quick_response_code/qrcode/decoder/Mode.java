@@ -18,40 +18,24 @@ package com.jwetherell.quick_response_code.qrcode.decoder;
 
 /**
  * <p>
- * See ISO 18004:2006, 6.4.1, Tables 2 and 3. This enum encapsulates the various modes in which data
- * can be encoded to bits in the QR code standard.
+ * See ISO 18004:2006, 6.4.1, Tables 2 and 3. This enum encapsulates the various
+ * modes in which data can be encoded to bits in the QR code standard.
  * </p>
  * 
  * @author Sean Owen
  */
 public enum Mode {
 
-    TERMINATOR(new int[] {
-            0, 0, 0
-    }, 0x00), // Not really a mode...
-    NUMERIC(new int[] {
-            10, 12, 14
-    }, 0x01), ALPHANUMERIC(new int[] {
-            9, 11, 13
-    }, 0x02), STRUCTURED_APPEND(new int[] {
-            0, 0, 0
-    }, 0x03), // Not supported
-    BYTE(new int[] {
-            8, 16, 16
-    }, 0x04), ECI(new int[] {
-            0, 0, 0
-    }, 0x07), // character counts don't apply
-    KANJI(new int[] {
-            8, 10, 12
-    }, 0x08), FNC1_FIRST_POSITION(new int[] {
-            0, 0, 0
-    }, 0x05), FNC1_SECOND_POSITION(new int[] {
-            0, 0, 0
-    }, 0x09),
+    TERMINATOR(new int[] { 0, 0, 0 }, 0x00), // Not really a mode...
+    NUMERIC(new int[] { 10, 12, 14 }, 0x01), ALPHANUMERIC(new int[] { 9, 11, 13 }, 0x02), STRUCTURED_APPEND(new int[] { 0, 0, 0 }, 0x03), // Not
+                                                                                                                                          // supported
+    BYTE(new int[] { 8, 16, 16 }, 0x04), ECI(new int[] { 0, 0, 0 }, 0x07), // character
+                                                                           // counts
+                                                                           // don't
+                                                                           // apply
+    KANJI(new int[] { 8, 10, 12 }, 0x08), FNC1_FIRST_POSITION(new int[] { 0, 0, 0 }, 0x05), FNC1_SECOND_POSITION(new int[] { 0, 0, 0 }, 0x09),
     /** See GBT 18284-2000; "Hanzi" is a transliteration of this mode name. */
-    HANZI(new int[] {
-            8, 10, 12
-    }, 0x0D);
+    HANZI(new int[] { 8, 10, 12 }, 0x0D);
 
     private final int[] characterCountBitsForVersions;
     private final int bits;
@@ -62,9 +46,11 @@ public enum Mode {
     }
 
     /**
-     * @param bits four bits encoding a QR Code data mode
+     * @param bits
+     *            four bits encoding a QR Code data mode
      * @return Mode encoded by these bits
-     * @throws IllegalArgumentException if bits do not correspond to a known mode
+     * @throws IllegalArgumentException
+     *             if bits do not correspond to a known mode
      */
     public static Mode forBits(int bits) {
         switch (bits) {
@@ -87,7 +73,8 @@ public enum Mode {
             case 0x9:
                 return FNC1_SECOND_POSITION;
             case 0xD:
-                // 0xD is defined in GBT 18284-2000, may not be supported in foreign country
+                // 0xD is defined in GBT 18284-2000, may not be supported in
+                // foreign country
                 return HANZI;
             default:
                 throw new IllegalArgumentException();
@@ -95,9 +82,11 @@ public enum Mode {
     }
 
     /**
-     * @param version version in question
-     * @return number of bits used, in this QR Code symbol {@link Version}, to encode the
-     *         count of characters that will follow encoded in this Mode
+     * @param version
+     *            version in question
+     * @return number of bits used, in this QR Code symbol {@link Version}, to
+     *         encode the count of characters that will follow encoded in this
+     *         Mode
      */
     public int getCharacterCountBits(Version version) {
         int number = version.getVersionNumber();

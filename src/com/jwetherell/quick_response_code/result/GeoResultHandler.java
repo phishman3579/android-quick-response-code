@@ -22,6 +22,7 @@ import com.google.zxing.client.result.ParsedResult;
 
 import android.app.Activity;
 
+
 /**
  * Handles geographic coordinates (typically encoded as geo: URLs).
  * 

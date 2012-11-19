@@ -21,8 +21,8 @@ import com.google.zxing.ResultPoint;
 
 /**
  * <p>
- * Encapsulates an alignment pattern, which are the smaller square patterns found in all but the
- * simplest QR Codes.
+ * Encapsulates an alignment pattern, which are the smaller square patterns
+ * found in all but the simplest QR Codes.
  * </p>
  * 
  * @author Sean Owen
@@ -38,8 +38,9 @@ public final class AlignmentPattern extends ResultPoint {
 
     /**
      * <p>
-     * Determines if this alignment pattern "about equals" an alignment pattern at the stated
-     * position and size -- meaning, it is at nearly the same center with nearly the same size.
+     * Determines if this alignment pattern "about equals" an alignment pattern
+     * at the stated position and size -- meaning, it is at nearly the same
+     * center with nearly the same size.
      * </p>
      */
     boolean aboutEquals(float moduleSize, float i, float j) {
@@ -51,8 +52,9 @@ public final class AlignmentPattern extends ResultPoint {
     }
 
     /**
-     * Combines this object's current estimate of a finder pattern position and module size
-     * with a new estimate. It returns a new {@code FinderPattern} containing an average of the two.
+     * Combines this object's current estimate of a finder pattern position and
+     * module size with a new estimate. It returns a new {@code FinderPattern}
+     * containing an average of the two.
      */
     AlignmentPattern combineEstimate(float i, float j, float newModuleSize) {
         float combinedX = (getX() + j) / 2.0f;

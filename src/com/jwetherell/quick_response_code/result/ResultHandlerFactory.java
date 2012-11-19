@@ -22,12 +22,14 @@ import com.google.zxing.client.result.ResultParser;
 
 import android.app.Activity;
 
+
 /**
  * Manufactures Android-specific handlers based on the barcode content's type.
  * 
  * @author dswitkin@google.com (Daniel Switkin)
  */
 public final class ResultHandlerFactory {
+
     private ResultHandlerFactory() {
     }
 
