@@ -19,7 +19,6 @@ package com.jwetherell.quick_response_code.qrcode.encoder;
 import com.jwetherell.quick_response_code.qrcode.decoder.ErrorCorrectionLevel;
 import com.jwetherell.quick_response_code.qrcode.decoder.Mode;
 
-
 /**
  * @author satorux@google.com (Satoru Takabayashi) - creator
  * @author dswitkin@google.com (Daniel Switkin) - ported from C++

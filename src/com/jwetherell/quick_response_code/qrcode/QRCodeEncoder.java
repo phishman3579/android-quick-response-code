@@ -34,7 +34,6 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 
-
 /**
  * This class does the work of decoding the user's request and extracting all
  * the data to be encoded in a barcode.
@@ -205,7 +204,8 @@ public final class QRCodeEncoder {
     }
 
     public Bitmap encodeAsBitmap() throws WriterException {
-        if (!encoded) return null;
+        if (!encoded)
+            return null;
 
         Map<EncodeHintType, Object> hints = null;
         String encoding = guessAppropriateEncoding(contents);

@@ -20,7 +20,6 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitArray;
 import com.jwetherell.quick_response_code.qrcode.decoder.ErrorCorrectionLevel;
 
-
 /**
  * @author satorux@google.com (Satoru Takabayashi) - creator
  * @author dswitkin@google.com (Daniel Switkin) - ported from C++

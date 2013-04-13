@@ -31,7 +31,6 @@ import com.jwetherell.quick_response_code.qrcode.decoder.ErrorCorrectionLevel;
 import com.jwetherell.quick_response_code.qrcode.decoder.Mode;
 import com.jwetherell.quick_response_code.qrcode.decoder.Version;
 
-
 /**
  * @author satorux@google.com (Satoru Takabayashi) - creator
  * @author dswitkin@google.com (Daniel Switkin) - ported from C++
@@ -457,20 +456,20 @@ public final class Encoder {
      */
     static void appendBytes(String content, Mode mode, BitArray bits, String encoding) throws WriterException {
         switch (mode) {
-            case NUMERIC:
-                appendNumericBytes(content, bits);
-                break;
-            case ALPHANUMERIC:
-                appendAlphanumericBytes(content, bits);
-                break;
-            case BYTE:
-                append8BitBytes(content, bits, encoding);
-                break;
-            case KANJI:
-                appendKanjiBytes(content, bits);
-                break;
-            default:
-                throw new WriterException("Invalid mode: " + mode);
+        case NUMERIC:
+            appendNumericBytes(content, bits);
+            break;
+        case ALPHANUMERIC:
+            appendAlphanumericBytes(content, bits);
+            break;
+        case BYTE:
+            append8BitBytes(content, bits, encoding);
+            break;
+        case KANJI:
+            appendKanjiBytes(content, bits);
+            break;
+        default:
+            throw new WriterException("Invalid mode: " + mode);
         }
     }
 

@@ -18,7 +18,6 @@ package com.jwetherell.quick_response_code.qrcode.detector;
 
 import com.google.zxing.ResultPoint;
 
-
 /**
  * <p>
  * Encapsulates an alignment pattern, which are the smaller square patterns

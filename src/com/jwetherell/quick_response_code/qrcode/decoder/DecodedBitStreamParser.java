@@ -29,7 +29,6 @@ import com.google.zxing.common.CharacterSetECI;
 import com.google.zxing.common.DecoderResult;
 import com.google.zxing.common.StringUtils;
 
-
 /**
  * <p>
  * QR Codes can encode text as bits in one of several modes, and can use

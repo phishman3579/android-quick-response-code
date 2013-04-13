@@ -35,7 +35,6 @@ import com.google.zxing.common.DetectorResult;
 import com.jwetherell.quick_response_code.qrcode.decoder.Decoder;
 import com.jwetherell.quick_response_code.qrcode.detector.Detector;
 
-
 /**
  * This implementation can detect and decode QR Codes in an image.
  * 

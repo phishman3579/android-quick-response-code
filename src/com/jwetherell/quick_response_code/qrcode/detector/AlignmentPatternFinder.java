@@ -23,7 +23,6 @@ import com.google.zxing.NotFoundException;
 import com.google.zxing.ResultPointCallback;
 import com.google.zxing.common.BitMatrix;
 
-
 /**
  * <p>
  * This class attempts to find alignment patterns in a QR Code. Alignment

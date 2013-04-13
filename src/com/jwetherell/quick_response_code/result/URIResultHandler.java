@@ -25,7 +25,6 @@ import android.app.Activity;
 
 import java.util.Locale;
 
-
 /**
  * Offers appropriate actions for URLS.
  * 

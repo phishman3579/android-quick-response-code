@@ -29,7 +29,6 @@ import com.google.zxing.WriterException;
 import com.jwetherell.quick_response_code.data.Contents;
 import com.jwetherell.quick_response_code.qrcode.QRCodeEncoder;
 
-
 /**
  * Example Encoder Activity.
  * 

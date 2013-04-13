@@ -25,7 +25,6 @@ import com.google.zxing.client.result.ProductParsedResult;
 
 import android.app.Activity;
 
-
 /**
  * Handles generic products which are not books.
  * 

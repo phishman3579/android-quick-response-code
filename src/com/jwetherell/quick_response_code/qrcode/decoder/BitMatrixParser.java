@@ -19,7 +19,6 @@ package com.jwetherell.quick_response_code.qrcode.decoder;
 import com.google.zxing.FormatException;
 import com.google.zxing.common.BitMatrix;
 
-
 /**
  * @author Sean Owen
  */

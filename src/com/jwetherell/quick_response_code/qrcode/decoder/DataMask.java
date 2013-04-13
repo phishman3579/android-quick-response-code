@@ -18,7 +18,6 @@ package com.jwetherell.quick_response_code.qrcode.decoder;
 
 import com.google.zxing.common.BitMatrix;
 
-
 /**
  * <p>
  * Encapsulates data masks for the data bits in a QR code, per ISO 18004:2006

@@ -21,7 +21,6 @@ import java.util.EnumSet;
 
 import com.google.zxing.BarcodeFormat;
 
-
 final class DecodeFormatManager {
 
     private DecodeFormatManager() {

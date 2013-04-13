@@ -28,7 +28,6 @@ import com.jwetherell.quick_response_code.qrcode.encoder.ByteMatrix;
 import com.jwetherell.quick_response_code.qrcode.encoder.Encoder;
 import com.jwetherell.quick_response_code.qrcode.encoder.QRCode;
 
-
 /**
  * This object renders a QR Code as a BitMatrix 2D array of greyscale values.
  * 

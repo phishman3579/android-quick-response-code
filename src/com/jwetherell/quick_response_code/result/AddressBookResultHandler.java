@@ -33,7 +33,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-
 /**
  * Handles address book entries.
  * 

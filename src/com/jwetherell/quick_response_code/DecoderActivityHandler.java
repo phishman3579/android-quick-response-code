@@ -31,7 +31,6 @@ import com.jwetherell.quick_response_code.camera.CameraManager;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 
-
 /**
  * This class handles all the messaging which comprises the state machine for
  * capture.
@@ -51,9 +50,11 @@ public final class DecoderActivityHandler extends Handler {
         PREVIEW, SUCCESS, DONE
     }
 
-    DecoderActivityHandler(IDecoderActivity activity, Collection<BarcodeFormat> decodeFormats, String characterSet, CameraManager cameraManager) {
+    DecoderActivityHandler(IDecoderActivity activity, Collection<BarcodeFormat> decodeFormats, String characterSet,
+            CameraManager cameraManager) {
         this.activity = activity;
-        decodeThread = new DecodeThread(activity, decodeFormats, characterSet, new ViewfinderResultPointCallback(activity.getViewfinder()));
+        decodeThread = new DecodeThread(activity, decodeFormats, characterSet, new ViewfinderResultPointCallback(
+                activity.getViewfinder()));
         decodeThread.start();
         state = State.SUCCESS;
 

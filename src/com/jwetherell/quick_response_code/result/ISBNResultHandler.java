@@ -25,7 +25,6 @@ import com.google.zxing.client.result.ParsedResult;
 
 import android.app.Activity;
 
-
 /**
  * Handles books encoded by their ISBN values.
  * 

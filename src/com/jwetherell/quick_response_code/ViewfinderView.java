@@ -32,7 +32,6 @@ import com.jwetherell.quick_response_code.R;
 import com.jwetherell.quick_response_code.camera.CameraManager;
 import com.google.zxing.ResultPoint;
 
-
 /**
  * This view is overlaid on top of the camera preview. It adds the viewfinder
  * rectangle and partial transparency outside it, as well as the laser scanner

@@ -38,7 +38,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-
 /**
  * Example Decoder Activity.
  * 
@@ -134,7 +133,8 @@ public class DecoderActivity extends Activity implements IDecoderActivity, Surfa
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        if (holder == null) Log.e(TAG, "*** WARNING *** surfaceCreated() gave us a null surface!");
+        if (holder == null)
+            Log.e(TAG, "*** WARNING *** surfaceCreated() gave us a null surface!");
         if (!hasSurface) {
             hasSurface = true;
             initCamera(holder);

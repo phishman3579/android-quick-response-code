@@ -20,7 +20,6 @@ import com.google.zxing.LuminanceSource;
 
 import android.graphics.Bitmap;
 
-
 /**
  * This object extends LuminanceSource around an array of YUV data returned from
  * the camera driver, with the option to crop to a rectangle within the full

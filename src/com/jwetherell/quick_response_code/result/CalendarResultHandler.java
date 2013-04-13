@@ -30,7 +30,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-
 /**
  * Handles calendar entries encoded in QR Codes.
  * 
@@ -50,17 +49,19 @@ public final class CalendarResultHandler extends ResultHandler {
         CalendarParsedResult calResult = (CalendarParsedResult) getResult();
         StringBuilder result = new StringBuilder(100);
         ParsedResult.maybeAppend(calResult.getSummary(), result);
-        String startString = calResult.getStart();
+        Date start = calResult.getStart();
+        String startString = start.toGMTString();
         appendTime(startString, result, false, false);
 
-        String endString = calResult.getEnd();
+        Date end = calResult.getEnd();
+        String endString = end.toGMTString();
         if (endString != null) {
             boolean sameStartEnd = startString.equals(endString);
             appendTime(endString, result, true, sameStartEnd);
         }
 
         ParsedResult.maybeAppend(calResult.getLocation(), result);
-        ParsedResult.maybeAppend(calResult.getAttendee(), result);
+        ParsedResult.maybeAppend(calResult.getAttendees(), result);
         ParsedResult.maybeAppend(calResult.getDescription(), result);
         return result.toString();
     }

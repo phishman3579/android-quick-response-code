@@ -29,7 +29,6 @@ import java.io.IOException;
 import com.jwetherell.quick_response_code.PlanarYUVLuminanceSource;
 import com.jwetherell.quick_response_code.data.Preferences;
 
-
 /**
  * This object wraps the Camera service object and expects to be the only one
  * talking to it. The implementation encapsulates the steps needed to take
@@ -287,6 +286,7 @@ public final class CameraManager {
             return null;
         }
         // Go ahead and assume it's YUV rather than die.
-        return new PlanarYUVLuminanceSource(data, width, height, rect.left, rect.top, rect.width(), rect.height(), Preferences.KEY_REVERSE_IMAGE);
+        return new PlanarYUVLuminanceSource(data, width, height, rect.left, rect.top, rect.width(), rect.height(),
+                Preferences.KEY_REVERSE_IMAGE);
     }
 }

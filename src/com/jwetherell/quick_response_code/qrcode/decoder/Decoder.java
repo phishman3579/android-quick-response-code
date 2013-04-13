@@ -27,7 +27,6 @@ import com.google.zxing.common.reedsolomon.GenericGF;
 import com.google.zxing.common.reedsolomon.ReedSolomonDecoder;
 import com.google.zxing.common.reedsolomon.ReedSolomonException;
 
-
 /**
  * <p>
  * The main class which implements QR Code decoding -- as opposed to locating

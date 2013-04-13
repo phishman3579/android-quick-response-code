@@ -18,7 +18,6 @@ package com.jwetherell.quick_response_code.qrcode.detector;
 
 import com.google.zxing.ResultPoint;
 
-
 /**
  * <p>
  * Encapsulates a finder pattern, which are the three square patterns found in

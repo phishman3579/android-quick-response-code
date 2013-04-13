@@ -32,7 +32,6 @@ import com.google.zxing.DecodeHintType;
 import com.google.zxing.ResultPointCallback;
 import com.jwetherell.quick_response_code.data.Preferences;
 
-
 /**
  * This thread does all the heavy lifting of decoding the images.
  * 
@@ -49,7 +48,8 @@ final class DecodeThread extends Thread {
 
     private Handler handler;
 
-    DecodeThread(IDecoderActivity activity, Collection<BarcodeFormat> decodeFormats, String characterSet, ResultPointCallback resultPointCallback) {
+    DecodeThread(IDecoderActivity activity, Collection<BarcodeFormat> decodeFormats, String characterSet,
+            ResultPointCallback resultPointCallback) {
         this.activity = activity;
         handlerInitLatch = new CountDownLatch(1);
         hints = new EnumMap<DecodeHintType, Object>(DecodeHintType.class);

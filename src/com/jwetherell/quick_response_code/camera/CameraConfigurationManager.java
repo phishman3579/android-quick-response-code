@@ -29,7 +29,6 @@ import java.util.Collection;
 
 import com.jwetherell.quick_response_code.data.Preferences;
 
-
 /**
  * A class which deals with reading, parsing, and setting the camera parameters
  * which are used to configure the camera hardware.

@@ -29,7 +29,6 @@ import com.google.zxing.ResultPoint;
 import com.google.zxing.ResultPointCallback;
 import com.google.zxing.common.BitMatrix;
 
-
 /**
  * <p>
  * This class attempts to find finder patterns in a QR Code. Finder patterns are

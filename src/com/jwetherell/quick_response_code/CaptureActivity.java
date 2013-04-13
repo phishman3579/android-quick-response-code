@@ -36,7 +36,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 /**
  * Example Capture Activity.
  * 
@@ -85,8 +84,10 @@ public class CaptureActivity extends DecoderActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (inScanMode) finish();
-            else onResume();
+            if (inScanMode)
+                finish();
+            else
+                onResume();
             return true;
         }
         return super.onKeyDown(keyCode, event);

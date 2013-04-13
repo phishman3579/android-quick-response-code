@@ -29,7 +29,6 @@ import com.google.zxing.common.GridSampler;
 import com.google.zxing.common.PerspectiveTransform;
 import com.jwetherell.quick_response_code.qrcode.decoder.Version;
 
-
 /**
  * <p>
  * Encapsulates logic that can detect a QR Code in an image, even if the QR Code
@@ -186,15 +185,15 @@ public class Detector {
         int tlblCentersDimension = round(ResultPoint.distance(topLeft, bottomLeft) / moduleSize);
         int dimension = ((tltrCentersDimension + tlblCentersDimension) >> 1) + 7;
         switch (dimension & 0x03) { // mod 4
-            case 0:
-                dimension++;
-                break;
-            // 1? do nothing
-            case 2:
-                dimension--;
-                break;
-            case 3:
-                throw NotFoundException.getNotFoundInstance();
+        case 0:
+            dimension++;
+            break;
+        // 1? do nothing
+        case 2:
+            dimension--;
+            break;
+        case 3:
+            throw NotFoundException.getNotFoundInstance();
         }
         return dimension;
     }

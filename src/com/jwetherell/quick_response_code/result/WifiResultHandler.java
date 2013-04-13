@@ -23,7 +23,6 @@ import com.jwetherell.quick_response_code.R;
 import com.google.zxing.client.result.ParsedResult;
 import com.google.zxing.client.result.WifiParsedResult;
 
-
 /**
  * Handles address book entries.
  * 

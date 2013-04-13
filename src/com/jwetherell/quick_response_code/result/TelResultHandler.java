@@ -23,7 +23,6 @@ import com.google.zxing.client.result.ParsedResult;
 import android.app.Activity;
 import android.telephony.PhoneNumberUtils;
 
-
 /**
  * Offers relevant actions for telephone numbers.
  * 

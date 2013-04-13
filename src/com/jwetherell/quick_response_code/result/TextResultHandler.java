@@ -24,7 +24,6 @@ import com.jwetherell.quick_response_code.R;
 
 import android.app.Activity;
 
-
 /**
  * This class handles TextParsedResult as well as unknown formats. It's the
  * fallback handler.
