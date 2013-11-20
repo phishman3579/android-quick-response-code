@@ -116,14 +116,14 @@ public class Detector {
 
             // Estimate that alignment pattern is closer by 3 modules
             // from "bottom right" to known top left location
-            float correctionToTopLeft = 1.0f - 3.0f / (float) modulesBetweenFPCenters;
+            float correctionToTopLeft = 1.0f - 3.0f / modulesBetweenFPCenters;
             int estAlignmentX = (int) (topLeft.getX() + correctionToTopLeft * (bottomRightX - topLeft.getX()));
             int estAlignmentY = (int) (topLeft.getY() + correctionToTopLeft * (bottomRightY - topLeft.getY()));
 
             // Kind of arbitrary -- expand search radius before giving up
             for (int i = 4; i <= 16; i <<= 1) {
                 try {
-                    alignmentPattern = findAlignmentInRegion(moduleSize, estAlignmentX, estAlignmentY, (float) i);
+                    alignmentPattern = findAlignmentInRegion(moduleSize, estAlignmentX, estAlignmentY, i);
                     break;
                 } catch (NotFoundException re) {
                     // try next round
@@ -145,9 +145,8 @@ public class Detector {
         return new DetectorResult(bits, points);
     }
 
-    public static PerspectiveTransform createTransform(ResultPoint topLeft, ResultPoint topRight, ResultPoint bottomLeft, ResultPoint alignmentPattern,
-            int dimension) {
-        float dimMinusThree = (float) dimension - 3.5f;
+    public static PerspectiveTransform createTransform(ResultPoint topLeft, ResultPoint topRight, ResultPoint bottomLeft, ResultPoint alignmentPattern, int dimension) {
+        float dimMinusThree = dimension - 3.5f;
         float bottomRightX;
         float bottomRightY;
         float sourceBottomRightX;
@@ -321,7 +320,7 @@ public class Detector {
                 if (state == 2) {
                     int diffX = x - fromX;
                     int diffY = y - fromY;
-                    return (float) Math.sqrt((double) (diffX * diffX + diffY * diffY));
+                    return (float) Math.sqrt(diffX * diffX + diffY * diffY);
                 }
                 state++;
             }
@@ -345,7 +344,7 @@ public class Detector {
         if (state == 2) {
             int diffX = toX + xstep - fromX;
             int diffY = toY - fromY;
-            return (float) Math.sqrt((double) (diffX * diffX + diffY * diffY));
+            return (float) Math.sqrt(diffX * diffX + diffY * diffY);
         }
         // else we didn't find even black-white-black; no estimate is really
         // possible

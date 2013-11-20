@@ -169,7 +169,7 @@ final class BitMatrixParser {
         // Get the data mask for the format used in this QR Code. This will
         // exclude
         // some bits from reading as we wind through the bit matrix.
-        DataMask dataMask = DataMask.forReference((int) formatInfo.getDataMask());
+        DataMask dataMask = DataMask.forReference(formatInfo.getDataMask());
         int dimension = bitMatrix.getHeight();
         dataMask.unmaskBitMatrix(bitMatrix, dimension);
 

@@ -105,9 +105,8 @@ public final class AddressBookResultHandler extends ResultHandler {
             Spannable styled = new SpannableString(contents.toString());
             styled.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, namesLength, 0);
             return styled;
-        } else {
-            return contents.toString();
         }
+        return contents.toString();
     }
 
     private static Date parseDate(String s) {

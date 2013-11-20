@@ -16,16 +16,14 @@
 
 package com.jwetherell.quick_response_code.camera;
 
+import java.util.Collection;
+
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.hardware.Camera;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
-
-import java.util.Collection;
 
 import com.jwetherell.quick_response_code.data.Preferences;
 
@@ -80,9 +78,7 @@ public final class CameraConfigurationManager {
             return;
         }
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-
-        initializeTorch(parameters, prefs);
+        initializeTorch(parameters);
         String focusMode = findSettableValue(parameters.getSupportedFocusModes(), Camera.Parameters.FOCUS_MODE_AUTO, Camera.Parameters.FOCUS_MODE_MACRO);
         if (focusMode != null) {
             parameters.setFocusMode(focusMode);
@@ -106,7 +102,7 @@ public final class CameraConfigurationManager {
         camera.setParameters(parameters);
     }
 
-    private static void initializeTorch(Camera.Parameters parameters, SharedPreferences prefs) {
+    private static void initializeTorch(Camera.Parameters parameters) {
         doSetTorch(parameters, Preferences.KEY_FRONT_LIGHT);
     }
 
