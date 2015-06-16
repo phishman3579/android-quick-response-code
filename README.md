@@ -104,3 +104,6 @@ You can see an example of how to decode an image by following along with the Dec
 * QR Code 2D barcode format.
 * UPC-A 1D format.
 
+## Support me with a donation
+
+<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=phishman3579%40gmail%2ecom&lc=US&item_name=Support%20open%20source&item_number=AndroidQuickResponseCode&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted" target="_new">Donate to this project</a>
