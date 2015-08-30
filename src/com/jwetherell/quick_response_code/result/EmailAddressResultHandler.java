@@ -38,7 +38,7 @@ public final class EmailAddressResultHandler extends ResultHandler {
     public CharSequence getDisplayContents() {
         EmailAddressParsedResult result = (EmailAddressParsedResult) getResult();
         StringBuilder contents = new StringBuilder(100);
-        ParsedResult.maybeAppend(result.getEmailAddress(), contents);
+        ParsedResult.maybeAppend(result.getTos(), contents);
         contents.trimToSize();
         return contents.toString();
     }

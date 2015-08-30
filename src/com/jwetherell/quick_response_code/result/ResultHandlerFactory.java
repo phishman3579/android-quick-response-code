@@ -58,6 +58,11 @@ public final class ResultHandlerFactory {
             return new CalendarResultHandler(activity, result);
         case ISBN:
             return new ISBNResultHandler(activity, result, rawResult);
+        case VIN:
+            // TODO: Justin
+            break;
+        default:
+            break;
         }
         return new TextResultHandler(activity, result, rawResult);
     }

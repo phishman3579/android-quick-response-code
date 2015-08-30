@@ -89,7 +89,7 @@ public final class AddressBookResultHandler extends ResultHandler {
             }
         }
         ParsedResult.maybeAppend(result.getEmails(), contents);
-        ParsedResult.maybeAppend(result.getURL(), contents);
+        ParsedResult.maybeAppend(result.getURLs(), contents);
 
         String birthday = result.getBirthday();
         if (birthday != null && birthday.length() > 0) {
