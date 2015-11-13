@@ -70,7 +70,7 @@ You can decode what is being displayed by the camera by extending Activity and i
         handleDecodeInternally(rawResult, resultHandler, barcode);
     }
 
-### Decoding and Catpure Activity Example
+### Decoding and Capture Activity Example
 
 You can see an example of how to decode an image by following along with the DecoderActivity.java file. You will also find a minimal example of how to decode an image and display it's results by following the CaptureActivity.java file.
 
