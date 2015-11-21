@@ -10,6 +10,7 @@ This is a port of the ZXing (version 2.1) project but reduced in size and scope.
 This project is an attempt to make working with QR codes in Android a bit easier.
 
 * Created by Justin Wetherell
+* For questions use: http://groups.google.com/forum/#!forum/android-quick-response-code
 * Google:   http://code.google.com/p/android-quick-response-code
 * Github:   http://github.com/phishman3579/android-quick-response-code
 * LinkedIn: http://www.linkedin.com/in/phishman3579
